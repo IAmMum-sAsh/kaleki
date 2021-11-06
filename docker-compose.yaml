@@ -1,0 +1,79 @@
+version: '3.7'
+
+services:     
+  app-presenter:
+    build:
+      context: app-presenter
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on: 
+      - db 
+      - kafka
+    environment: 
+      SPRING_DATASOURCE_URL: #
+      SPRING_DATASOURCE_USERNAME: #
+      SPRING_DATASOURCE_PASSWORD: #
+
+  app-committer:
+    build:
+      context: app-committer
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+    restart: always
+    depends_on: 
+      - db 
+      - kafka
+      - app-presenter
+    environment: 
+      SPRING_DATASOURCE_URL: #
+      SPRING_DATASOURCE_USERNAME: #
+      SPRING_DATASOURCE_PASSWORD: #
+
+  frontend-main:
+    build:
+      context: frontend-main
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_BASE_URL: http://app-presenter:8080/api
+    ports:
+      - "80:80"
+    # volumes:
+    #   - "./frontend-main:/usr/src/app1"
+    restart: always
+    depends_on:
+      - app-presenter
+
+  db:
+    image: 'postgres:13.1-alpine'
+    container_name: db
+    environment:
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_USER: #
+      POSTGRES_PASSWORD: #
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./pgdata:/var/lib/postgresql/data"
+    restart: always
+
+  zookeeper:
+    image: 'wurstmeister/zookeeper:latest'
+    container_name: zookeeper
+
+  kafka:
+    image: "wurstmeister/kafka"
+    container_name: kafka
+    ports:
+     - "9092:9092"
+    hostname: kafka
+    depends_on:
+      - zookeeper
+    # links: 
+    #  - zookeeper
+    environment:
+     - KAFKA_ADVERTISED_HOST_NAME=kafka
+     - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+     - KAFKA_ADVERTISED_PORT=9092
