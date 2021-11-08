@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:     
-  app-presenter:
+  kaleki-presenter:
     build:
       context: kaleki-presenter
       dockerfile: Dockerfile
@@ -16,7 +16,7 @@ services:
       SPRING_DATASOURCE_USERNAME: #
       SPRING_DATASOURCE_PASSWORD: #
 
-  app-committer:
+  kaleki-committer:
     build:
       context: kaleki-commiter
       dockerfile: Dockerfile
@@ -26,7 +26,7 @@ services:
     depends_on: 
       - db 
       - kafka
-      - app-presenter
+      - kaleki-presenter
     environment: 
       SPRING_DATASOURCE_URL: #
       SPRING_DATASOURCE_USERNAME: #
@@ -37,14 +37,14 @@ services:
       context: frontend-main
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_BASE_URL: http://app-presenter:8080/api
+        REACT_APP_API_BASE_URL: http://kaleki-presenter:8080/api
     ports:
       - "80:80"
     # volumes:
     #   - "./frontend-main:/usr/src/app1"
     restart: always
     depends_on:
-      - app-presenter
+      - kaleki-presenter
 
   db:
     image: 'postgres:13.1-alpine'
@@ -60,20 +60,39 @@ services:
     restart: always
 
   zookeeper:
-    image: 'wurstmeister/zookeeper:latest'
+    image: wurstmeister/zookeeper
+    hostname: zookeeper
     container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+        ZOO_MY_ID: 1
+        ZOO_PORT: 2181
+        ZOO_SERVERS: server.1=zookeeper:2888:3888
+        restart: always
+    volumes:
+      - ./zk-single-kafka-single/zookeeper/data:/data
+      - ./zk-single-kafka-single/zookeeper/datalog:/datalog
 
   kafka:
-    image: "wurstmeister/kafka"
-    container_name: kafka
-    ports:
-     - "9092:9092"
-    hostname: kafka
-    depends_on:
-      - zookeeper
-    # links: 
-    #  - zookeeper
-    environment:
-     - KAFKA_ADVERTISED_HOST_NAME=kafka
-     - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
-     - KAFKA_ADVERTISED_PORT=9092
+      image: wurstmeister/kafka
+      hostname: kafka
+      container_name: kafka
+      ports:
+        - "9092:9092"
+      environment:
+        # HOSTNAME_COMMAND: kafka #"docker info | grep ^Name: | cut -d' ' -f 2"
+        KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka:9092 #,LISTENER_DOCKER_EXTERNAL://_{HOSTNAME_COMMAND}:9094
+        KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+        KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+        KAFKA_LISTENERS: LISTENER_DOCKER_INTERNAL://:9092,LISTENER_DOCKER_EXTERNAL://:9094
+        KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+        # KAFKA_ADVERTISED_HOST_NAME: 172.19.0.1
+        KAFKA_BROKER_ID: 1
+        KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+        KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+        restart: always
+      volumes:
+        - ./zk-single-kafka-single/kafka/data:/var/lib/kafka/data
+      depends_on:
+        - zookeeper
