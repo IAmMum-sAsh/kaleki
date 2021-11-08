@@ -3,3 +3,4 @@
 
 # Игнорируем данные базы
 /pgdata/*
+/zk-single-kafka-single/*
