@@ -3,18 +3,21 @@ package ru.mirea.kalekicommiter.entitys;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.mirea.kalekicommiter.entitys.PKs.ProjectsInCompaniesPK;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "projects_in_companies")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectsInCompanies extends BaseEntity{
-    protected String username;
-    protected String email;
-    protected String password;
-    protected String role;
+//@IdClass(ProjectsInCompaniesPK.class)
+public class ProjectsInCompanies {
+//    @Id
+//    protected long project_id;
+//    @Id
+//    protected long company_id;
+    @EmbeddedId
+    protected ProjectsInCompaniesPK projectsInCompaniesPK;
 }

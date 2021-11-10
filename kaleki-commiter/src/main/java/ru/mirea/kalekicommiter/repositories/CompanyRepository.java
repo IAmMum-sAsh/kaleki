@@ -7,6 +7,6 @@ import ru.mirea.kalekicommiter.entitys.Company;
 import java.util.Optional;
 
 @Repository
-public interface CompanyRepository extends JpaRepository<Company, Integer> {
-    Optional<Company> findById(int company_id);
+public interface CompanyRepository extends JpaRepository<Company, Long> {
+    Optional<Company> findById(long company_id);
 }
