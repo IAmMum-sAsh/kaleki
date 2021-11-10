@@ -1,6 +1,7 @@
 package ru.mirea.kalekicommiter.services;
 
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 import ru.mirea.kalekicommiter.models.Message;
 
@@ -8,7 +9,7 @@ import ru.mirea.kalekicommiter.models.Message;
 public class ConsumerService {
 
     @KafkaListener(topics = "messages",  groupId = "message_group_id")
-    public void consume(Message message){
+    public void consume(@Payload(required = false) Message message){
         System.out.println("Consuming the message: " + message);
     }
 }
