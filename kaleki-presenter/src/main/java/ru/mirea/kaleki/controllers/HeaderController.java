@@ -64,12 +64,9 @@ public class HeaderController {
                 () -> {throw new MyNotFoundException("User not found");}
         );
 
-//        List<Optional<Company>> companies = usersCompaniesRepositoryForCompany.findBy(currentUser) ;
+        String company = currentUser.getCompany();
 
-        List<Optional<User>> list = new ArrayList<>();
-//        if (companies.size() > 0){
-//            list = userService.;
-//        }
+        List<Optional<User>> list = userService.findByCompanies(company);
 
         List<UserDto> userDtos = new ArrayList<>();
 

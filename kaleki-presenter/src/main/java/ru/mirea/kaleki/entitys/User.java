@@ -3,6 +3,7 @@ package ru.mirea.kaleki.entitys;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.mirea.kaleki.dto.CompanyDto;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -18,8 +19,7 @@ public class User extends BaseEntity{
     protected String email;
     protected String password;
     protected String role;
-    @ManyToOne
-    protected Company companies;
+    protected String company;
 
     @Override
     public String toString() {
@@ -29,7 +29,7 @@ public class User extends BaseEntity{
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
-                ", companies=" + companies +
+                ", company" + company +
                 '}';
     }
 }
