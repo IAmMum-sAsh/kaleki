@@ -37,5 +37,5 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","ru.mirea.kalekipresenter.KalekiPresenterApplication"]
+ENTRYPOINT ["java","-cp","app:app/lib/*","ru.mirea.kaleki.KalekiPresenterApplication"]
 # ENTRYPOINT ["java", "-jar", "application.jar"]
