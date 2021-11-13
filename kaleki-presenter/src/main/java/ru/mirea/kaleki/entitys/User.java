@@ -5,10 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -20,8 +18,18 @@ public class User extends BaseEntity{
     protected String email;
     protected String password;
     protected String role;
-    @ManyToMany
-    protected List<Company> companies;
-    @ManyToMany
-    protected List<Project> projects;
+    @ManyToOne
+    protected Company companies;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", companies=" + companies +
+                '}';
+    }
 }

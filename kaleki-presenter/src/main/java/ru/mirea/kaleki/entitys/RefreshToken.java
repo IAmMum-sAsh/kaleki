@@ -24,4 +24,12 @@ public class RefreshToken {
         this.user_id = userId;
         this.refresh_token = refreshToken;
     }
+
+    @Override
+    public String toString() {
+        return "RefreshToken{" +
+                "refresh_token='" + refresh_token + '\'' +
+                ", user_id=" + user_id +
+                '}';
+    }
 }

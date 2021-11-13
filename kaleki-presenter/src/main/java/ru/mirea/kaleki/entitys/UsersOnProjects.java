@@ -28,4 +28,14 @@ public class UsersOnProjects {
     protected Position position;
     protected double rate;
     protected double base_salary;
+
+    @Override
+    public String toString() {
+        return "UsersOnProjects{" +
+                "usersOnProjectsPK=" + usersOnProjectsPK.toString() +
+                ", position=" + position +
+                ", rate=" + rate +
+                ", base_salary=" + base_salary +
+                '}';
+    }
 }

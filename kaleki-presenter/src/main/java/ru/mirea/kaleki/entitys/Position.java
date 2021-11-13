@@ -14,4 +14,12 @@ import javax.persistence.Table;
 @AllArgsConstructor
 public class Position extends BaseEntity{
     protected String name;
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

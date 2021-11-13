@@ -20,4 +20,12 @@ public class UsersOnProjectsPK implements Serializable {
         this.user = user;
         this.project = project;
     }
+
+    @Override
+    public String toString() {
+        return "UsersOnProjectsPK{" +
+                "user=" + user +
+                ", project=" + project +
+                '}';
+    }
 }

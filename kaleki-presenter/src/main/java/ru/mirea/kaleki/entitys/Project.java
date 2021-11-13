@@ -20,4 +20,15 @@ public class Project extends BaseEntity{
     protected Company company;
     protected Date start_date;
     protected String status;
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", company=" + company +
+                ", start_date=" + start_date +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

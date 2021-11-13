@@ -21,4 +21,14 @@ public class Company extends BaseEntity{
     protected User CEO;
     @Column(columnDefinition = "TEXT")
     protected String address;
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", CEO=" + CEO +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }
