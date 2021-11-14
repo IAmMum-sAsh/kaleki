@@ -2,6 +2,9 @@ package ru.mirea.kaleki.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.mirea.kaleki.dto.CompanyDtoPayload;
+import ru.mirea.kaleki.dto.ProjectDtoPayload;
+import ru.mirea.kaleki.entitys.Company;
 import ru.mirea.kaleki.entitys.Project;
 import ru.mirea.kaleki.entitys.User;
 import ru.mirea.kaleki.repositories.ProjectRepository;
@@ -16,6 +19,9 @@ public class ProjectService {
     protected ProjectRepository projectRepository;
 
     @Autowired
+    protected CompanyService companyService;
+
+    @Autowired
     protected UsersOnProjectsRepository usersOnProjectsRepository;
 
     public List<Project> getProjects(){
@@ -26,7 +32,18 @@ public class ProjectService {
         return projectRepository.findByName(name);
     }
 
-//    public List<Optional<Project>> getByUser(User user){
-//        return usersOnProjectsRepository.findByUser(user);
-//    }
+    public Optional<Project> findById(long id) {
+        return projectRepository.findById(id);
+    }
+
+    public Project createProject(ProjectDtoPayload projectDtoPayload){
+        Project project = new Project();
+
+        project.setCompany(companyService.getCompanyById(projectDtoPayload.getCompany()));
+        project.setName(projectDtoPayload.getName());
+        project.setStart_date(projectDtoPayload.getStart_date());
+        project.setStatus(projectDtoPayload.getStatus());
+
+        return projectRepository.save(project);
+    }
 }

@@ -52,6 +52,8 @@ public class UserService {
         return userRepository.findByCompany(company);
     }
 
+    public List<User> findAll() {return userRepository.findAll();}
+
     public User registerNewUser(UserDtoPayload userDtoPayload, String role) {
         User user = new User();
 
@@ -67,6 +69,22 @@ public class UserService {
         userRepository.save(user);
 
         return user;
+    }
+
+    public User giveManage(User user){
+        user.setRole("ROLE_MANAGER");
+
+        return userRepository.save(user);
+    }
+
+    public User updateUserCompany(User user, String newCompany){
+        user.setCompany(user.getCompany()+"#"+newCompany);
+        return userRepository.save(user);
+    }
+
+    public User updateUserProject(User user, String newProject){
+        user.setProjects(user.getProjects()+"#"+newProject);
+        return userRepository.save(user);
     }
 
 }

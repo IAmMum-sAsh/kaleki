@@ -2,6 +2,7 @@ package ru.mirea.kaleki.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.mirea.kaleki.dto.CompanyDtoPayload;
 import ru.mirea.kaleki.entitys.Company;
 import ru.mirea.kaleki.entitys.Project;
 import ru.mirea.kaleki.entitys.User;
@@ -28,20 +29,15 @@ public class CompanyService {
         return companyRepository.findAll();
     }
 
-//    public List<Optional<User>> findUserByCompany(String companyName) {
-//        List<Optional<User>> listU = new ArrayList<>();
-//
-//        Optional<Company> companyOptional = companyRepository.findByName(companyName);
-//        Company company = companyOptional.get();
-//
-//        List<Optional<Project>> listP = projectRepository.findAllByCompany(company);
-//
-//        for(Optional<Project> project : listP){
-//            List<Optional<User>> lou = (usersOnProjectsRepository.findByProject(project.get()));
-//            for (Optional<User> optionalUser : lou){
-//                listU.add(optionalUser);
-//            }
-//        }
-//        return listU;
-//    }
+    public Company getCompanyById(long id) {return companyRepository.getById(id);}
+
+    public Company createCompany(CompanyDtoPayload companyDtoPayload, User ceo){
+        Company company = new Company();
+
+        company.setAddress(companyDtoPayload.getAddress());
+        company.setName(companyDtoPayload.getName());
+        company.setCEO(ceo);
+
+        return companyRepository.save(company);
+    }
 }

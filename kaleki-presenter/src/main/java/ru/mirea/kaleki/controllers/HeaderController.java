@@ -19,6 +19,7 @@ import ru.mirea.kaleki.services.ProjectService;
 import ru.mirea.kaleki.services.UserService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,14 +65,24 @@ public class HeaderController {
                 () -> {throw new MyNotFoundException("User not found");}
         );
 
-        String company = currentUser.getCompany();
+        List<String> companies = Arrays.asList(currentUser.getCompany().split("#"));
+//        for(String company : companies){
+//            List<Optional<User>> temp = userService.findByCompanies(company);
+//            for(Optional<User> user : temp){
+//                list.add(user.get());
+//            }
+//        }
 
-        List<Optional<User>> list = userService.findByCompanies(company);
+        List<User> allUsers = userService.findAll();
 
         List<UserDto> userDtos = new ArrayList<>();
-
-        for(Optional<User> user : list){
-            userDtos.add(new UserDto(user.get()));
+        for(User user : allUsers){
+            List<String> temp = Arrays.asList(user.getCompany().split("#"));
+            for (String tempComp : temp){
+                if(companies.contains(tempComp)&&(!userDtos.contains(new UserDto(user)))){
+                    userDtos.add(new UserDto(user));
+                }
+            }
         }
         return ResponseEntity.ok(userDtos);
     }

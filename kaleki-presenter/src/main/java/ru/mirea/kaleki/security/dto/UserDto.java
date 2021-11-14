@@ -7,6 +7,7 @@ import ru.mirea.kaleki.entitys.User;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
     private long id;
     private String email;
