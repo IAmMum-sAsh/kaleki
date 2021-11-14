@@ -59,6 +59,7 @@ public class UserService {
         user.setUsername(userDtoPayload.getUsername());
         user.setRole(role);
         user.setCompany("Base company");
+        user.setProjects("");
 
         String encodedPassword = bCryptPasswordEncoder.encode(userDtoPayload.getPassword());
         user.setPassword(encodedPassword);

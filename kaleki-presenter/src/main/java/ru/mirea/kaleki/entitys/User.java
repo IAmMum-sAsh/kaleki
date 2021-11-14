@@ -3,10 +3,9 @@ package ru.mirea.kaleki.entitys;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.mirea.kaleki.dto.CompanyDto;
+import lombok.ToString;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,22 +13,13 @@ import javax.persistence.Table;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class User extends BaseEntity{
     protected String username;
     protected String email;
     protected String password;
     protected String role;
     protected String company;
+    protected String projects;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", company" + company +
-                '}';
-    }
 }

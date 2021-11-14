@@ -22,6 +22,10 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
+    public Optional<Project> findByName(String name) {
+        return projectRepository.findByName(name);
+    }
+
 //    public List<Optional<Project>> getByUser(User user){
 //        return usersOnProjectsRepository.findByUser(user);
 //    }
