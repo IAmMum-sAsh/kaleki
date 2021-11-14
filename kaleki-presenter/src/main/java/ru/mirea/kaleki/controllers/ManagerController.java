@@ -7,12 +7,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.mirea.kaleki.dto.*;
-import ru.mirea.kaleki.entitys.Company;
-import ru.mirea.kaleki.entitys.Project;
 import ru.mirea.kaleki.entitys.User;
 import ru.mirea.kaleki.entitys.UsersOnProjects;
 import ru.mirea.kaleki.exceptions.MyNotFoundException;
-import ru.mirea.kaleki.security.dto.AuthenticationRequestDto;
 import ru.mirea.kaleki.security.dto.UserDto;
 import ru.mirea.kaleki.services.CompanyService;
 import ru.mirea.kaleki.services.ProjectService;
@@ -20,9 +17,7 @@ import ru.mirea.kaleki.services.UserService;
 import ru.mirea.kaleki.services.UsersOnProjectsService;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -128,5 +123,22 @@ public class ManagerController {
         }
 
         return ResponseEntity.ok(usersOnProjectsDto);
+    }
+
+    @PutMapping("/change_project_status")
+    public ResponseEntity<ProjectDto> changeProjectStatus(@RequestBody ChangeProjectStatusDtoPayload payload){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        User currentUser = userService.findByEmail(currentUserName).orElseThrow(
+                () -> {throw new MyNotFoundException("User not found");}
+        );
+
+        List<String> companies = Arrays.asList(currentUser.getCompany().split("#"));
+
+        if (companies.contains(projectService.findById(payload.getProject_id()).get().getCompany().getName())) {
+            return ResponseEntity.ok(new ProjectDto(projectService.updateProjectStatus(payload)));
+        } else{
+            return ResponseEntity.ok(new ProjectDto(0, "Невозможно изменить проект в подразделении другой компании", new CompanyDto(), new Date(0), ""));
+        }
     }
 }

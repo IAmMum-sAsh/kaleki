@@ -2,6 +2,7 @@ package ru.mirea.kaleki.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.mirea.kaleki.dto.ChangeProjectStatusDtoPayload;
 import ru.mirea.kaleki.dto.CompanyDtoPayload;
 import ru.mirea.kaleki.dto.ProjectDtoPayload;
 import ru.mirea.kaleki.entitys.Company;
@@ -43,6 +44,14 @@ public class ProjectService {
         project.setName(projectDtoPayload.getName());
         project.setStart_date(projectDtoPayload.getStart_date());
         project.setStatus(projectDtoPayload.getStatus());
+
+        return projectRepository.save(project);
+    }
+
+    public Project updateProjectStatus(ChangeProjectStatusDtoPayload payload){
+        Project project = projectRepository.findById(payload.getProject_id()).get();
+
+        project.setStatus(payload.getStatus());
 
         return projectRepository.save(project);
     }
