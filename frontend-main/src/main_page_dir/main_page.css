@@ -1,0 +1,62 @@
+
+.mcontainer {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.mheader {
+    /*background: url('http://www.autodatz.com/wp-content/uploads/2017/05/Old-Car-Wallpapers-Hd-36-with-Old-Car-Wallpapers-Hd.jpg');*/
+    text-align: center;
+    width: 100%;
+    height: auto;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 85% 85% / 30%;
+}
+.mheader .overlay{
+    width: 100%;
+    height: 100%;
+    padding: 50px;
+    color: #FFF;
+    text-shadow: 1px 1px 1px #333;
+    background-image: linear-gradient( 90deg, rgba(255, 5, 155, 0.41) 10%, rgba(126, 80, 89, 0.49) 100%);
+
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 80px;
+    margin-bottom: 30px;
+}
+
+h3, p {
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 30px;
+}
+
+button {
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    color: #333;
+    background: #fff;
+    margin-bottom: 50px;
+    box-shadow: 0 3px 20px 0 #0000003b;
+}
+button:hover{
+    cursor: pointer;
+}
+
+.main-important {
+    background: url("https://www.rabstol.net/uploads/gallery/main/496/rabstol_net_soup_17.jpg");
+    background-size: cover;
+}
+
+.baclimgmain {
+    position: absolute;
+    width: 100%;
+}

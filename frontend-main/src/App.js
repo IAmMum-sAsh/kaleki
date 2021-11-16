@@ -3,9 +3,12 @@ import './App.css';
 import {Component} from "react";
 import {BrowserRouter as Router, Routes, Route, Switch, BrowserRouter} from "react-router-dom";
 // import Layout from '../containers/Layout'
-import ErrorPage from "./ErrorPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ErrorPage from "./ErrorPage";
 import MainPage from "./main_page_dir/main_page";
+import Login from "./login_component/Login";
+import SignUP from "./login_component/SignUP";
+import MyProjects from "./my_projects_component/my_projects";
 
 
 class App extends Component {
@@ -46,10 +49,12 @@ class App extends Component {
         // </Router>
         <BrowserRouter>
           <Switch>
-            <Route exact path={'/'} component={MainPage}/>
+                <Route exact path={'/'} component={MainPage}/>
 
-            {/*<Route exact path={'/login'} component={Login}/>*/}
-            {/*<Route exact path={'/signup'} component={SignUP}/>*/}
+                <Route exact path={'/login'} component={Login}/>
+                <Route exact path={'/signup'} component={SignUP}/>
+
+                <Route exact path={'/projects'} component={MyProjects}/>
 
             {/*<Route exact path={'/repositories'} component={Repositories}/>*/}
             {/*<Route path={"/repository/:id"} component={RepositoryPage} />*/}
