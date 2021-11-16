@@ -29,14 +29,4 @@ public class UserSignupController {
         return ResponseEntity.ok(new UserDto(registeredUser));
     }
 
-    @PostMapping("/manager")
-    public ResponseEntity<UserDto> signupNewManager(@RequestBody UserDtoPayload userDtoPayload) {
-        if (userService.findByEmail(userDtoPayload.getEmail()).isPresent())
-            throw new ConflictException();
-
-        User registeredUser = userService.registerNewUser(userDtoPayload, "ROLE_MANAGER");
-
-        return ResponseEntity.ok(new UserDto(registeredUser));
-    }
-
 }
