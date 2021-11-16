@@ -1,5 +1,9 @@
-h1, h2, h3, h5 {
+h1, h2, h5 {
     margin: 0;
+    color: white;
+}
+h3{
+    color: black;
 }
 
 .header {
@@ -95,7 +99,12 @@ h1, h2, h3, h5 {
 }
 
 .mainmainmain {
+    width: 100vw;
+    height: 100vw;
     text-align: center;
+    /*background: url("https://www.rabstol.net/uploads/gallery/main/496/rabstol_net_soup_17.jpg");*/
+    background: url(../bubbles-cut.svg) repeat fixed;
+    /*background-size: cover;*/
 }
 
 .dot {

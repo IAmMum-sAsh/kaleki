@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/create_project").hasRole("MANAGER")
                     .antMatchers("/api/set_worker_on_project").hasRole("MANAGER")
                     .antMatchers("/api/change_project_status").hasRole("MANAGER")
+                    .antMatchers("/api/get_my_role").hasAnyRole("WORKER", "MANAGER")
 
                     .anyRequest().authenticated()
                 .and()

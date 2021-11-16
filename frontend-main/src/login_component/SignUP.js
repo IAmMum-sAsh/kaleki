@@ -71,20 +71,20 @@ const useStyles = (theme) => ({
     },
 });
 
-function registerManagerUser(credentials) { //credentials as param
-    //console.log(JSON.stringify(credentials));
-
-    let data = '';
-    return fetch('/api/signup/manager', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-        .then(data => data.json())
-
-}
+// function registerManagerUser(credentials) { //credentials as param
+//     //console.log(JSON.stringify(credentials));
+//
+//     let data = '';
+//     return fetch('/api/signup/manager', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(credentials)
+//     })
+//         .then(data => data.json())
+//
+// }
 
 async function registerWorkerUser(credentials) { //credentials as param
     //console.log(JSON.stringify(credentials));
@@ -182,22 +182,21 @@ class SignUP extends Component {
 
 
 
-        if (this.state.sel1 == "selected") {
-            const token = registerManagerUser({
-                username,
-                email,
-                password
-            }).then(result => {this.setState({res : result.username} ) } )
-            //console.log(token.then(result => {this.setState({res : result.username} ) } ));
-        } else if (this.state.sel1 == "") {
-            const token = registerWorkerUser({
-                username,
-                email,
-                password
-            }).then(result => {this.setState({
-                res : result.username
-            } ) } )
-        }
+        // if (this.state.sel1 == "selected") {
+        //     const token = registerManagerUser({
+        //         username,
+        //         email,
+        //         password
+        //     }).then(result => {this.setState({res : result.username} ) } )
+        //     //console.log(token.then(result => {this.setState({res : result.username} ) } ));
+        // } else
+        const token = registerWorkerUser({
+            username,
+            email,
+            password
+        }).then(result => {this.setState({
+            res : result.username
+        } ) } )
 
         this.props.history.push("/login");
     }
@@ -255,28 +254,6 @@ class SignUP extends Component {
                         <img src="3056196.png" alt="" className="icoicoico"/>
                         <h3>Сервис УП <span>БОРЩ</span></h3></a>
                         <p>Добро пожаловать! Пожалуйста, введите информацию в поля ниже для получения доступа к функциям сервиса.</p>
-
-                        <div className="murowdiv">
-                            <Card>
-                                <div className={selection_worker} onClick={this.handleselselect}>
-                                        <div className="content">
-                                            <h1 className="title">{title}</h1>
-                                            <p className="description">Персонал</p>
-                                        </div>
-                                    <div className="check"><span className="checkmark">✔</span></div>
-                                </div>
-                            </Card>
-
-                            <Card>
-                                <div className={selection_manager} onClick={this.handleselselect}>
-                                    <div className="content">
-                                        <h1 className="title">{title}</h1>
-                                        <p className="description">В рот ебал</p>
-                                    </div>
-                                    <div className="check"><span className="checkmark">✔</span></div>
-                                </div>
-                            </Card>
-                        </div>
 
                          <TextField
                             variant="outlined"

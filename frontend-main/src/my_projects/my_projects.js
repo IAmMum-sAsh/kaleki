@@ -8,7 +8,7 @@ class Card extends React.Component {
     render() {
         return(
             <div className="card">
-                <span className="comp-name"><span className="dot"></span>Внутренний субподряд СБД (Юникредит) и что-нить еще</span>
+                <span className="comp-name"><span className="dot"></span>Название</span>
 
                 <div className="close-form"></div>
                 <div className="card-body">

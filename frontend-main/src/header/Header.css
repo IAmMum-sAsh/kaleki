@@ -1,10 +1,10 @@
 a{
-    color: black;
+    color: white;
     font-size: large;
 }
 
 .main-lbl {
-    color: black;
+    color: crimson;
     font-size: x-large;
 }
 
@@ -14,4 +14,5 @@ body {
 
 .opana {
     margin-bottom: 0 !important;
+    background: rgba(0, 0, 0, 0.58);
 }

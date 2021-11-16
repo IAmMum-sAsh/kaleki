@@ -8,7 +8,12 @@ import ErrorPage from "./ErrorPage";
 import MainPage from "./main_page_dir/main_page";
 import Login from "./login_component/Login";
 import SignUP from "./login_component/SignUP";
-import MyProjects from "./my_projects_component/my_projects";
+import MyProjects from "./my_projects/my_projects";
+import About from "./about/about";
+import Companies from "./companies/companies";
+import Projects from "./projects/projects";
+import Workers from "./workers/workers";
+import GiveManage from "./give_manage/give_manage";
 
 
 class App extends Component {
@@ -54,7 +59,16 @@ class App extends Component {
                 <Route exact path={'/login'} component={Login}/>
                 <Route exact path={'/signup'} component={SignUP}/>
 
-                <Route exact path={'/projects'} component={MyProjects}/>
+                <Route exact path={'/my_projects'} component={MyProjects}/>
+
+                <Route exact path={'/about'} component={About}/>
+                <Route exact path={'/companies'} component={Companies}/>
+                <Route exact path={'/projects'} component={Projects}/>
+                <Route exact path={'/workers'} component={Workers}/>
+                <Route exact path={'/give_manage'} component={GiveManage}/>
+
+
+
 
             {/*<Route exact path={'/repositories'} component={Repositories}/>*/}
             {/*<Route path={"/repository/:id"} component={RepositoryPage} />*/}
