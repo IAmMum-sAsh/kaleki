@@ -13,4 +13,5 @@ public class UsersOnProjectsDtoPayload {
     protected long position_id;
     protected double rate;
     protected double base_salary;
+    protected int week_work_time;
 }

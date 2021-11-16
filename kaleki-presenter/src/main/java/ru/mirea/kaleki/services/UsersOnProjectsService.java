@@ -3,6 +3,7 @@ package ru.mirea.kaleki.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.mirea.kaleki.dto.UsersOnProjectsDto;
 import ru.mirea.kaleki.dto.UsersOnProjectsDtoPayload;
 import ru.mirea.kaleki.entitys.PKs.UsersOnProjectsPK;
 import ru.mirea.kaleki.entitys.User;
@@ -35,6 +36,7 @@ public class UsersOnProjectsService {
         usersOnProjects.setPosition(positionService.findById(usersOnProjectsDtoPayload.getPosition_id()));
         usersOnProjects.setRate(usersOnProjectsDtoPayload.getRate());
         usersOnProjects.setBase_salary(usersOnProjectsDtoPayload.getBase_salary());
+        usersOnProjects.setWeek_work_time(usersOnProjectsDtoPayload.getWeek_work_time());
 
         List<String> companies = Arrays.asList(user.getCompany().split("#"));
         List<String> projects = Arrays.asList(user.getProjects().split("#"));
@@ -45,8 +47,16 @@ public class UsersOnProjectsService {
             userService.updateUserProject(user, usersOnProjects.getUsersOnProjectsPK().getProject().getName());
         }
 
-
-
         return usersOnProjectsRepository.save(usersOnProjects);
+    }
+
+    public UsersOnProjects findByUsersOnProjectsPK(UsersOnProjectsPK usersOnProjectsPK){
+        UsersOnProjects usersOnProjects = usersOnProjectsRepository.findByUsersOnProjectsPK(usersOnProjectsPK).get();
+        return usersOnProjects;
+    }
+
+    public UsersOnProjects updateInfo(UsersOnProjects usersOnProjects){
+        return usersOnProjectsRepository.save(usersOnProjects);
+
     }
 }

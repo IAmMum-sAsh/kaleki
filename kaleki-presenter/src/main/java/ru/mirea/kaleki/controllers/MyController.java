@@ -5,19 +5,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ru.mirea.kaleki.dto.CompanyDto;
-import ru.mirea.kaleki.dto.ProjectDto;
+import org.springframework.web.bind.annotation.*;
+import ru.mirea.kaleki.dto.*;
 import ru.mirea.kaleki.entitys.Company;
+import ru.mirea.kaleki.entitys.PKs.UsersOnProjectsPK;
 import ru.mirea.kaleki.entitys.Project;
 import ru.mirea.kaleki.entitys.User;
+import ru.mirea.kaleki.entitys.UsersOnProjects;
 import ru.mirea.kaleki.exceptions.MyNotFoundException;
 import ru.mirea.kaleki.repositories.ProjectRepository;
 import ru.mirea.kaleki.repositories.UsersOnProjectsRepository;
+import ru.mirea.kaleki.security.dto.AuthenticationRequestDto;
 import ru.mirea.kaleki.security.dto.UserDto;
 import ru.mirea.kaleki.services.ProjectService;
 import ru.mirea.kaleki.services.UserService;
+import ru.mirea.kaleki.services.UsersOnProjectsService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,10 +31,13 @@ import java.util.Optional;
 public class MyController {
 
     @Autowired
-    ProjectService projectService;
+    protected ProjectService projectService;
 
     @Autowired
-    UserService userService;
+    protected UserService userService;
+
+    @Autowired
+    protected UsersOnProjectsService usersOnProjectsService;
 
     @GetMapping("/my_projects")
     public ResponseEntity<List<ProjectDto>> getMyProjects(){
@@ -51,5 +56,63 @@ public class MyController {
             projectDtos.add(new ProjectDto(temp.getId(), temp.getName(), new CompanyDto(temp.getCompany()), temp.getStart_date(), temp.getStatus()));
         }
         return ResponseEntity.ok(projectDtos);
+    }
+
+    @GetMapping("/my_projects/{id}")
+    public ResponseEntity<ProjectDtoExtended> getMyProjectById(@PathVariable long id){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        User currentUser = userService.findByEmail(currentUserName).orElseThrow(
+                () -> {throw new MyNotFoundException("User not found");}
+        );
+
+        ProjectDtoExtended projectDtoExtended = new ProjectDtoExtended();
+
+        Project project = projectService.findById(id).get();
+
+        UsersOnProjects usersOnProjects = usersOnProjectsService.findByUsersOnProjectsPK(new UsersOnProjectsPK(currentUser, project));
+
+        projectDtoExtended.setId(project.getId());
+        projectDtoExtended.setName(project.getName());
+        projectDtoExtended.setCompany(new CompanyDto(project.getCompany()));
+        projectDtoExtended.setStart_date(project.getStart_date());
+        projectDtoExtended.setStatus(project.getStatus());
+        projectDtoExtended.setPosition(usersOnProjects.getPosition().getName());
+        projectDtoExtended.setBase_salary(usersOnProjects.getBase_salary());
+        projectDtoExtended.setRate(usersOnProjects.getRate());
+        projectDtoExtended.setWeek_work_time(usersOnProjects.getWeek_work_time());
+
+        return ResponseEntity.ok(projectDtoExtended);
+    }
+
+    @PutMapping("/my_projects/{id}/write_off")
+    public ResponseEntity<ProjectDtoExtended> writeOff(@PathVariable long id, @RequestBody WriteOffDto writeOffDto){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        User currentUser = userService.findByEmail(currentUserName).orElseThrow(
+                () -> {throw new MyNotFoundException("User not found");}
+        );
+
+        ProjectDtoExtended projectDtoExtended = new ProjectDtoExtended();
+
+        Project project = projectService.findById(id).get();
+
+        UsersOnProjects usersOnProjects = usersOnProjectsService.findByUsersOnProjectsPK(new UsersOnProjectsPK(currentUser, project));
+
+        usersOnProjects.setWeek_work_time(usersOnProjects.getWeek_work_time() + writeOffDto.getHours());
+
+        usersOnProjects = usersOnProjectsService.updateInfo(usersOnProjects);
+
+        projectDtoExtended.setId(project.getId());
+        projectDtoExtended.setName(project.getName());
+        projectDtoExtended.setCompany(new CompanyDto(project.getCompany()));
+        projectDtoExtended.setStart_date(project.getStart_date());
+        projectDtoExtended.setStatus(project.getStatus());
+        projectDtoExtended.setPosition(usersOnProjects.getPosition().getName());
+        projectDtoExtended.setBase_salary(usersOnProjects.getBase_salary());
+        projectDtoExtended.setRate(usersOnProjects.getRate());
+        projectDtoExtended.setWeek_work_time(usersOnProjects.getWeek_work_time());
+
+        return ResponseEntity.ok(projectDtoExtended);
     }
 }

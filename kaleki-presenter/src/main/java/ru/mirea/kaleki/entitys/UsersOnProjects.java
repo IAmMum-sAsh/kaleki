@@ -28,6 +28,7 @@ public class UsersOnProjects {
     protected Position position;
     protected double rate;
     protected double base_salary;
+    protected int week_work_time;
 
     @Override
     public String toString() {
@@ -36,6 +37,7 @@ public class UsersOnProjects {
                 ", position=" + position +
                 ", rate=" + rate +
                 ", base_salary=" + base_salary +
+                ", week_work_time=" + week_work_time +
                 '}';
     }
 }
