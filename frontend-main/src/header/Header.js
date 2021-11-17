@@ -111,6 +111,16 @@ class Header extends Component {
         }
     }
 
+    renderCreateProject() {
+        const cookies = new Cookies();
+        let a = cookies.get('accessToken');
+        let b = this.state.role.role;
+
+        if (a && (b == "ROLE_MANAGER")) {
+            return <a className='p-2 text-white' href='/create_project'>Создать проект</a>;
+        }
+    }
+
     addFunctions() {
         const cookies = new Cookies();
         let b = cookies.get('username');
@@ -122,6 +132,7 @@ class Header extends Component {
                     {/*<a href="/user_settings">Настройки</a>*/}
                     {this.renderGiveManage()}
                     {this.renderCreateCompany()}
+                    {this.renderCreateProject()}
                     <a href="/" onClick={this.handleRemoveCookie} >Выйти</a>
                 </div>
             )

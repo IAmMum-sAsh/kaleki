@@ -137,6 +137,7 @@ class MyProjectById extends Component {
                         label="Часы"
                         name="_hours"
                         onChange={this.handleInputChange}
+                        autocomplete="off"
                     />
                     <div className="cut"></div>
                     <label htmlFor="hours" className="placeholder">Часы</label>
@@ -153,28 +154,6 @@ class MyProjectById extends Component {
                 </button>
             </div>
         );
-
-
-        {/*{*/}
-        {/*    "id": 1,*/}
-        {/*    "name": "CofiNYA",*/}
-        {/*    "company": {*/}
-        {/*        "id": 2,*/}
-        {/*        "name": "Cofi",*/}
-        {/*        "address": "Калужская область, город Серебряные Пруды, въезд Ломоносова, 88",*/}
-        {/*        "ceo": {*/}
-        {/*            "id": 2,*/}
-        {/*            "email": "ashot@mega.ru",*/}
-        {/*            "username": "Бадридзе Ашот"*/}
-        {/*        }*/}
-        {/*    },*/}
-        {/*    "start_date": "2001-10-23",*/}
-        {/*    "status": "ACTIVE",*/}
-        {/*    "position": "CEO",*/}
-        {/*    "rate": 1,*/}
-        {/*    "base_salary": 75000,*/}
-        {/*    "week_work_time": 0*/}
-        {/*    }*/}
 
         return projectCards;
     }

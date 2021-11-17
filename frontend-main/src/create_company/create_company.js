@@ -5,7 +5,7 @@ import Header from "../header/Header";
 import Cookies from "universal-cookie";
 import PropTypes from "prop-types";
 
-async function writeOff(credentials) { //credentials as param
+async function createCompany(credentials) { //credentials as param
     console.log(JSON.stringify(credentials));
     const cookies = new Cookies();
     let a = cookies.get('accessToken');
@@ -57,14 +57,13 @@ class CreateCompany extends Component {
         let name = this.state._name;
         let address = this.state._address
 
-        const req = await writeOff({
+        const req = await createCompany({
             name, address
         },);
         const cookies = new Cookies();
         cookies.set('req', req, {path: '/companies'});
 
         this.props.history.push('/companies');
-        window.location.reload();
     }
 
 
@@ -83,6 +82,7 @@ class CreateCompany extends Component {
                             label="Название"
                             name="_name"
                             onChange={this.handleInputChange}
+                            autocomplete="off"
                         />
                         <div className="cut"></div>
                         <label htmlFor="hours" className="placeholder">Название</label>
@@ -94,6 +94,7 @@ class CreateCompany extends Component {
                             label="Адрес"
                             name="_address"
                             onChange={this.handleInputChange}
+                            autocomplete="off"
                         />
                         <div className="cut"></div>
                         <label htmlFor="hours" className="placeholder">Адрес</label>
