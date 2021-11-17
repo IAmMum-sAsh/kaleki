@@ -99,6 +99,11 @@ public class MyController {
 
         Project project = projectService.findById(id).get();
 
+        if (!project.getStatus().equals("ACTIVE")){
+            projectDtoExtended.setName("Проект неактивен, часы списать нельзя");
+            return ResponseEntity.ok(projectDtoExtended);
+        }
+
         UsersOnProjects usersOnProjects = usersOnProjectsService.findByUsersOnProjectsPK(new UsersOnProjectsPK(currentUser, project));
 
         usersOnProjects.setWeek_work_time(usersOnProjects.getWeek_work_time() + writeOffDto.getHours());

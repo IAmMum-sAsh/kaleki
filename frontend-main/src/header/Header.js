@@ -91,13 +91,23 @@ class Header extends Component {
         this.setState({role: prs});
     }
 
-    renderBtns() {
+    renderGiveManage() {
         const cookies = new Cookies();
         let a = cookies.get('accessToken');
         let b = this.state.role.role;
 
         if (a && (b == "ROLE_MANAGER")) {
             return <a className='p-2 text-white' href='/give_manage'>Повысить</a>;
+        }
+    }
+
+    renderCreateCompany() {
+        const cookies = new Cookies();
+        let a = cookies.get('accessToken');
+        let b = this.state.role.role;
+
+        if (a && (b == "ROLE_MANAGER")) {
+            return <a className='p-2 text-white' href='/create_company'>Создать компанию</a>;
         }
     }
 
@@ -110,7 +120,8 @@ class Header extends Component {
                 <div className="dropdown-child">
                     <a href="/my_projects">Мои проекты</a>
                     {/*<a href="/user_settings">Настройки</a>*/}
-                    {this.renderBtns()}
+                    {this.renderGiveManage()}
+                    {this.renderCreateCompany()}
                     <a href="/" onClick={this.handleRemoveCookie} >Выйти</a>
                 </div>
             )
