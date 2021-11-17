@@ -12,7 +12,9 @@ import java.sql.Date;
 public class ProjectDtoExtended {
     protected long id;
     protected String name;
-    protected CompanyDto company;
+    protected String company_name;
+    protected String CEO_username;
+    protected String CEO_email;
     protected Date start_date;
     protected String status;
 

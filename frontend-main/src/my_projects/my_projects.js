@@ -65,7 +65,7 @@ class MyProjects extends Component {
             if (projects[i].status == "FROZEN") {clnm = "yellowst";}
             else if (projects[i].status == "ACTIVE") {clnm = "greenst";}
             projectCards.push(
-                <a href={"/project/"+projects[i].id}>
+                <a href={"/my_projects/"+projects[i].id}>
                 <div className="card">
                     <span className="comp-name"><span className={"dot "+clnm}></span>{projects[i].name}</span>
 

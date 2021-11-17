@@ -74,7 +74,9 @@ public class MyController {
 
         projectDtoExtended.setId(project.getId());
         projectDtoExtended.setName(project.getName());
-        projectDtoExtended.setCompany(new CompanyDto(project.getCompany()));
+        projectDtoExtended.setCompany_name(project.getCompany().getName());
+        projectDtoExtended.setCEO_username(project.getCompany().getCEO().getUsername());
+        projectDtoExtended.setCEO_email(project.getCompany().getCEO().getEmail());
         projectDtoExtended.setStart_date(project.getStart_date());
         projectDtoExtended.setStatus(project.getStatus());
         projectDtoExtended.setPosition(usersOnProjects.getPosition().getName());
@@ -105,7 +107,9 @@ public class MyController {
 
         projectDtoExtended.setId(project.getId());
         projectDtoExtended.setName(project.getName());
-        projectDtoExtended.setCompany(new CompanyDto(project.getCompany()));
+        projectDtoExtended.setCompany_name(project.getCompany().getName());
+        projectDtoExtended.setCEO_username(project.getCompany().getCEO().getUsername());
+        projectDtoExtended.setCEO_email(project.getCompany().getCEO().getEmail());
         projectDtoExtended.setStart_date(project.getStart_date());
         projectDtoExtended.setStatus(project.getStatus());
         projectDtoExtended.setPosition(usersOnProjects.getPosition().getName());

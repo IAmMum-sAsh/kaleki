@@ -1,0 +1,199 @@
+
+import React, {Component} from 'react';
+import './my_projects_by_id.css';
+import Header from "../header/Header";
+import Cookies from "universal-cookie";
+import PropTypes from "prop-types";
+
+async function writeOff(credentials, id) { //credentials as param
+    console.log(JSON.stringify(credentials));
+    const cookies = new Cookies();
+    let a = cookies.get('accessToken');
+    let data = '';
+    let projects = cookies.projects;
+
+    return fetch('/api/my_projects/'+ id + '/write_off', {
+        method: 'PUT',
+        headers: {
+            'Authorization': 'Bearer ' + a,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+    })
+        .then(data => data.json())
+
+}
+
+class MyProjectById extends Component {
+    static contextTypes = {
+        router: PropTypes.object
+    }
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            page_id: 0,
+            projects: [],
+            _hours: 0,
+            code: props.code ? props.code : '666',
+            description: props.description ? props.description : 'Unknown error'
+        };
+
+        // //const [token, setToken] = useState();
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+
+    handleSubmit = async e => {
+        e.preventDefault();
+
+        let hours = this.state._hours;
+
+        const req = await writeOff({
+            hours
+        }, this.state.page_id);
+        const cookies = new Cookies();
+        cookies.set('hours', req.hours, {path: ('/my_projects/' + this.state.page_id)});
+
+        this.props.history.push(('/my_projects/' + this.state.page_id));
+        window.location.reload();
+    }
+
+
+
+    async getMyProjectById() {
+        const cookies = new Cookies();
+        let a = cookies.get('accessToken');
+
+        let id =document.URL;
+        id = id.slice(34);
+        const name = 'page_id';
+
+        this.setState({
+            [name]: id
+        });
+
+        return await fetch('/api/my_projects/'+id, {
+            method: 'get',
+            headers: new Headers({
+                'Authorization': 'Bearer ' + a,
+                'Content-Type': 'application/json'
+            }),
+        }).then(response => response.json());
+    }
+
+    async componentDidMount() {
+        let prs = await this.getMyProjectById();
+        this.setState({projects: prs});
+    }
+
+    renderProjects() {
+        let projects = this.state.projects;
+
+        if (projects == null) {return;}
+
+        let projectCards = [];
+        let clnm = "";
+        if (projects.status == "FROZEN") {clnm = "yellowst";}
+        else if (projects.status == "ACTIVE") {clnm = "greenst";}
+        let salary = projects.base_salary * projects.rate;
+        let max_hours = 40 * projects.rate;
+        projectCards.push(
+            <div className="card">
+                <span className="comp-name"><span className={"dot "+clnm}></span>{projects.name}</span>
+
+                <input type="checkbox" className="close-form" onClick={event => {}}></input>
+                <div className="card-body">
+                    <h2>Должность: {projects.position}</h2>
+                    <h2>Ставка: {projects.rate}</h2>
+                    <h2>Базовая заработная плата: {salary}р.</h2>
+                    <br />
+                    <progress  max={max_hours} value={projects.week_work_time}></progress>
+                    <h5>{projects.week_work_time} из {max_hours} часов</h5>
+                    <br />
+                    <p>Менеджер проекта: <b>{projects.ceo_username}</b>.
+                        Вы можете связаться с ним по всем, интересующим вас вопросам по электронной почте <a className="hvr" href={"mailto:"+projects.ceo_email}>{projects.ceo_email}</a></p>
+                    <h5>Компания: {projects.company_name}</h5>
+                    <h5>Дата начала: {projects.start_date}</h5>
+                </div>
+            </div>
+        );
+        projectCards.push(
+            <div className="form" noValidate>
+                <div className="input-container ic1">
+                    <input
+                        className="input" type="number" min="1" placeholder=" "
+                        id="hours"
+                        label="Часы"
+                        name="_hours"
+                        onChange={this.handleInputChange}
+                    />
+                    <div className="cut"></div>
+                    <label htmlFor="hours" className="placeholder">Часы</label>
+                </div>
+                <button
+                    type="submit"
+                    onClick={this.handleSubmit}
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className="submit"
+                >
+                    Списать
+                </button>
+            </div>
+        );
+
+
+        {/*{*/}
+        {/*    "id": 1,*/}
+        {/*    "name": "CofiNYA",*/}
+        {/*    "company": {*/}
+        {/*        "id": 2,*/}
+        {/*        "name": "Cofi",*/}
+        {/*        "address": "Калужская область, город Серебряные Пруды, въезд Ломоносова, 88",*/}
+        {/*        "ceo": {*/}
+        {/*            "id": 2,*/}
+        {/*            "email": "ashot@mega.ru",*/}
+        {/*            "username": "Бадридзе Ашот"*/}
+        {/*        }*/}
+        {/*    },*/}
+        {/*    "start_date": "2001-10-23",*/}
+        {/*    "status": "ACTIVE",*/}
+        {/*    "position": "CEO",*/}
+        {/*    "rate": 1,*/}
+        {/*    "base_salary": 75000,*/}
+        {/*    "week_work_time": 0*/}
+        {/*    }*/}
+
+        return projectCards;
+    }
+
+    render() {
+        const {code, description} = this.state;
+        return (
+            <div className="mainmainmain">
+                <Header />
+
+                <h1>Списать часы</h1>
+                <div className='page-wrap d-flex flex-row align-items-center pt-5 maindiv'>
+                    <div className='my-cards'>
+                        {this.renderProjects()}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default MyProjectById;

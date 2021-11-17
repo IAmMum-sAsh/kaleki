@@ -14,6 +14,7 @@ import Companies from "./companies/companies";
 import Projects from "./projects/projects";
 import Workers from "./workers/workers";
 import GiveManage from "./give_manage/give_manage";
+import MyProjectById from "./my_projects_by_id/my_projects_by_id";
 
 
 class App extends Component {
@@ -60,11 +61,13 @@ class App extends Component {
                 <Route exact path={'/signup'} component={SignUP}/>
 
                 <Route exact path={'/my_projects'} component={MyProjects}/>
+                <Route exact path={'/my_projects/**'} component={MyProjectById}/>
 
                 <Route exact path={'/about'} component={About}/>
                 <Route exact path={'/companies'} component={Companies}/>
                 <Route exact path={'/projects'} component={Projects}/>
                 <Route exact path={'/workers'} component={Workers}/>
+
                 <Route exact path={'/give_manage'} component={GiveManage}/>
 
 
