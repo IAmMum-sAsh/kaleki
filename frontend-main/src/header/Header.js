@@ -6,6 +6,7 @@ import { withCookies, Cookies } from 'react-cookie';
 import './Header.css';
 // import AuthElement from "../auth_element_component/AuthElement";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ChangeProjectStatus from "../change_project_status/change_project_status";
 
 class Header extends Component {
     static propTypes = {
@@ -131,6 +132,16 @@ class Header extends Component {
         }
     }
 
+    renderChangeProjectStatus() {
+        const cookies = new Cookies();
+        let a = cookies.get('accessToken');
+        let b = this.state.role.role;
+
+        if (a && (b == "ROLE_MANAGER")) {
+            return <a className='p-2 text-white' href='/change_project_status'>Изменить статус проекта</a>;
+        }
+    }
+
     addFunctions() {
         const cookies = new Cookies();
         let b = cookies.get('username');
@@ -144,6 +155,7 @@ class Header extends Component {
                     {this.renderCreateCompany()}
                     {this.renderCreateProject()}
                     {this.renderSetWorkerOnProject()}
+                    {this.renderChangeProjectStatus()}
                     <a href="/" onClick={this.handleRemoveCookie} >Выйти</a>
                 </div>
             )
