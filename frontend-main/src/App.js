@@ -17,6 +17,7 @@ import GiveManage from "./give_manage/give_manage";
 import MyProjectById from "./my_projects_by_id/my_projects_by_id";
 import CreateCompany from "./create_company/create_company";
 import CreateProject from "./create_project/create_project";
+import SetWorkerOnProject from "./set_worker_on_project/set_worker_on_project";
 
 
 class App extends Component {
@@ -73,6 +74,7 @@ class App extends Component {
                 <Route exact path={'/give_manage'} component={GiveManage}/>
                 <Route exact path={'/create_company'} component={CreateCompany}/>
                 <Route exact path={'/create_project'} component={CreateProject}/>
+                <Route exact path={'/set_worker_on_project'} component={SetWorkerOnProject}/>
 
 
 

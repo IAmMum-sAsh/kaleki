@@ -32,7 +32,7 @@ class CreateProject extends Component {
             _name: '',
             _company: 0,
             _start_date: '',
-            status: '',
+            _status: '',
             code: props.code ? props.code : '666',
             description: props.description ? props.description : 'Unknown error'
         };
