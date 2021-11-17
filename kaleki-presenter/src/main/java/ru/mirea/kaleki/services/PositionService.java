@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.mirea.kaleki.entitys.Position;
 import ru.mirea.kaleki.repositories.PositionRepository;
 
+import java.util.List;
+
 @Service
 public class PositionService {
     @Autowired
@@ -12,5 +14,9 @@ public class PositionService {
 
     public Position findById(long id){
         return positionRepository.findById(id).get();
+    }
+
+    public List<Position> findAll(){
+        return positionRepository.findAll();
     }
 }
