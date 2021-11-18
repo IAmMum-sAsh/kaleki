@@ -104,22 +104,14 @@ h1, h2, h3, h5 {
     /*background-size: cover;*/
 }
 
-.dot {
+.worker-dot {
     width: 80px;
     height: 80px;
     left: 15px;
     margin-top: 10px;
-    background-color: #ff0000;
+    background-color: teal;
     border-radius: 50%;
     display: inline-block;
-}
-
-.greenst {
-    background-color: #1cff00;
-}
-
-.yellowst {
-    background-color: #ffcc00;
 }
 
 .close-form {
@@ -176,9 +168,5 @@ a {
 }
 
 a:hover {
-    color: black ;
-}
-
-.hvr:hover {
-    color: #aa00ff !important;
+    color: #B22222;
 }

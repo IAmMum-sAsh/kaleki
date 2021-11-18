@@ -62,7 +62,7 @@ class MyProjects extends Component {
         let projectCards = [];
         for (let i= 0; i < projects.length; ++i) {
             let clnm = "";
-            if (projects[i].status == "FROZEN") {clnm = "yellowst";}
+            if (projects[i].status == "FROZEN") {clnm = "bluest";}
             else if (projects[i].status == "ACTIVE") {clnm = "greenst";}
             projectCards.push(
                 <a href={"/my_projects/"+projects[i].id}>

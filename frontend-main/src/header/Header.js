@@ -15,7 +15,7 @@ class Header extends Component {
         this.state = {
             user: cookies.get("username") || "",
             data_p: 'avatar.png',
-            userhref: '/login',
+            id: 0,
             role: '',
             name: '',
             code: props.code ? props.code : '999',
@@ -59,11 +59,26 @@ class Header extends Component {
         }).then(response => response.json());
     }
 
+    async getId() {
+        const cookies = new Cookies();
+        let a = cookies.get('accessToken');
+
+        return await fetch('/api/get_id', {
+            method: 'get',
+            headers: new Headers({
+                'Authorization': 'Bearer ' + a,
+                'Content-Type': 'application/json'
+            }),
+        }).then(response => response.json());
+    }
+
     async componentDidMount() {
         let prsRole = await this.getRole();
         this.setState({role: prsRole.role});
         let prsName = await this.getName();
         this.setState({name: prsName.name});
+        let prsId = await this.getId();
+        this.setState({id: prsId.id});
     }
 
     renderGiveManage() {
@@ -157,15 +172,14 @@ class Header extends Component {
         let a = cookies.get('accessToken');
 
         if (a) {
-            return <span className="user-span">для пользователя <span className="user-name">{this.state.name}</span></span>;
+            return <span className="user-span">для пользователя <span className="user-name">{this.state.name}</span> ID: {this.state.id}</span>;
         }
     }
 
     render() {
         const { data_p } = this.state;
-        const { userhref } = this.state;
 
-        console.log(this.state.name + ' ' + this.state.role)
+        console.log(this.state.name + ' ' + this.state.role + ' ' + this.state.id)
         return (
             <div>
                 {/*<AuthElement />*/}
@@ -180,12 +194,6 @@ class Header extends Component {
                         <a className='p-2 text-white' href='/companies'>Компании</a>
                         <a className='p-2 text-white' href='/projects'>Проекты</a>
                         {this.renderBtnWork()}
-
-                        {/*<a href={userhref} >*/}
-                        {/*    <img className='user-nav-img' src={data_p} />*/}
-
-                        {/*</a>*/}
-
                         <div className="dropdown">
                             <div >
                                 <img className='user-nav-img' src={data_p}  alt='avatar'/>
@@ -194,7 +202,6 @@ class Header extends Component {
                             { this.addFunctions() }
                         </div>
                     </nav>
-                    {/*<a className='btn btn-outline-primary' href='/#'>Выход</a>*/}
 
                 </div>
             </div>

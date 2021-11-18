@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Routes, Route, Switch, BrowserRouter} from "rea
 // import Layout from '../containers/Layout'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ErrorPage from "./ErrorPage";
-import MainPage from "./main_page_dir/main_page";
+import MainPage from "./main_page/main_page";
 import Login from "./login_component/Login";
 import SignUP from "./login_component/SignUP";
 import MyProjects from "./my_projects/my_projects";

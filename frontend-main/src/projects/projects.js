@@ -67,7 +67,7 @@ class Projects extends Component {
         projects.sort(byField('id'));
         for (let i= 0; i < projects.length; ++i) {
             let clnm = "";
-            if (projects[i].status == "FROZEN") {clnm = "yellowst";}
+            if (projects[i].status == "FROZEN") {clnm = "bluest";}
             else if (projects[i].status == "ACTIVE") {clnm = "greenst";}
             projectCards.push(
                 <div className="card">

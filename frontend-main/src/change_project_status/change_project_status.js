@@ -4,7 +4,6 @@ import './change_project_status.css';
 import Header from "../header/Header";
 import Cookies from "universal-cookie";
 import PropTypes from "prop-types";
-import HelpComponent from "../help_position_component/help_component";
 
 async function changeProjectStatus(credentials) { //credentials as param
     console.log(JSON.stringify(credentials));
@@ -37,7 +36,7 @@ class ChangeProjectStatus extends Component {
         super(props, context);
         this.state = {
             _project_id: 0,
-            _status: '',
+            _status: 'ACTIVE',
             warn: '',
             code: props.code ? props.code : '666',
             description: props.description ? props.description : 'Unknown error'

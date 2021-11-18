@@ -122,7 +122,7 @@ class MyProjectById extends Component {
 
         let projectCards = [];
         let clnm = "";
-        if (projects.status == "FROZEN") {clnm = "yellowst";}
+        if (projects.status == "FROZEN") {clnm = "bluest";}
         else if (projects.status == "ACTIVE") {clnm = "greenst";}
         let salary = projects.base_salary * projects.rate;
         let max_hours = 40 * projects.rate;

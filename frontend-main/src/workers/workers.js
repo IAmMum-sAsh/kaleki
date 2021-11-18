@@ -60,11 +60,9 @@ class Workers extends Component {
         let projectCards = [];
         for (let i= 0; i < workers.length; ++i) {
             let clnm = "";
-            if (workers[i].status == "FROZEN") {clnm = "yellowst";}
-            else if (workers[i].status == "ACTIVE") {clnm = "greenst";}
             projectCards.push(
                 <div className="card">
-                    <span className="comp-name"><span className={"dot "+clnm}></span>{workers[i].username}</span>
+                    <span className="comp-name"><span className={"worker-dot "+clnm}></span>{workers[i].username}</span>
 
                     <input type="checkbox" className="close-form" onClick={event => {}}></input>
                     <div className="card-body">

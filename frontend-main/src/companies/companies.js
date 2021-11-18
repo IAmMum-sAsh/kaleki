@@ -63,7 +63,7 @@ class Companies extends Component {
             if (i != 0){
                 projectCards.push(
                     <div className="card">
-                        <span className="comp-name"><span className={"dot "+clnm}></span>{companies[i].name}</span>
+                        <span className="comp-name"><span className={"company-dot "+clnm}></span>{companies[i].name}</span>
 
                         <input type="checkbox" className="close-form" onClick={event => {}}></input>
                         <div className="card-body">

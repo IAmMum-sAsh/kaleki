@@ -112,17 +112,17 @@ h3{
     height: 80px;
     left: 15px;
     margin-top: 10px;
-    background-color: #ff0000;
+    background-color: crimson;
     border-radius: 50%;
     display: inline-block;
 }
 
 .greenst {
-    background-color: #1cff00;
+    background-color: #2E8B57;
 }
 
-.yellowst {
-    background-color: #ffcc00;
+.bluest {
+    background-color: #4682B4;
 }
 
 .close-form {
@@ -179,9 +179,5 @@ a {
 }
 
 a:hover {
-    color: black ;
-}
-
-.hvr:hover {
-    color: #aa00ff !important;
+    color: #B22222;
 }

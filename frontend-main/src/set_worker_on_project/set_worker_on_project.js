@@ -173,7 +173,7 @@ class SetWorkerOnProject extends Component {
                         color="primary"
                         className="submit"
                     >
-                        Создать
+                        Поставить
                     </button>
                 </div>
             </div>
