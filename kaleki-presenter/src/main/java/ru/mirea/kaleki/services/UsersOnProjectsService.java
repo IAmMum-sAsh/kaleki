@@ -43,9 +43,6 @@ public class UsersOnProjectsService {
         if (!companies.contains(usersOnProjects.getUsersOnProjectsPK().getProject().getCompany().getName())) {
             userService.updateUserCompany(user, usersOnProjects.getUsersOnProjectsPK().getProject().getCompany().getName());
         }
-        if (!projects.contains(usersOnProjects.getUsersOnProjectsPK().getProject().getName())) {
-            userService.updateUserProject(user, usersOnProjects.getUsersOnProjectsPK().getProject().getName());
-        }
 
         return usersOnProjectsRepository.save(usersOnProjects);
     }

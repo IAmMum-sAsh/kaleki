@@ -12,6 +12,7 @@ import ru.mirea.kaleki.repositories.UserRepository;
 import ru.mirea.kaleki.security.payload.UserDtoPayload;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,12 +79,24 @@ public class UserService {
     }
 
     public User updateUserCompany(User user, String newCompany){
-        user.setCompany(user.getCompany()+"#"+newCompany);
+        boolean flag = false;
+        if (user.getCompany().equals("")) { flag=true; }
+        List<String> companies = Arrays.asList(user.getCompany().split("#"));
+        if (!companies.contains(newCompany)){
+            user.setCompany(user.getCompany()+"#"+newCompany);
+        }
+        if (flag) { user.setCompany(user.getCompany().substring(1)); }
         return userRepository.save(user);
     }
 
     public User updateUserProject(User user, String newProject){
-        user.setProjects(user.getProjects()+"#"+newProject);
+        boolean flag = false;
+        if (user.getProjects().equals("")) { flag=true; }
+        List<String> companies = Arrays.asList(user.getCompany().split("#"));
+        if (!companies.contains(newProject)){
+            user.setProjects(user.getProjects()+"#"+newProject);
+        }
+        if (flag) { user.setProjects(user.getProjects().substring(1)); }
         return userRepository.save(user);
     }
 

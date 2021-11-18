@@ -100,6 +100,10 @@ public class ManagerController {
         List<String> managerCompanies = Arrays.asList(currentUser.getCompany().split("#"));
         boolean flag = false;
 
+        if (workerCompanies.get(0).equals("Base company")){
+            flag = true;
+            user.setCompany("");
+        }
         for (String workComp : workerCompanies){
             for (String managComp : managerCompanies){
                 if (workComp.equals(managComp)){

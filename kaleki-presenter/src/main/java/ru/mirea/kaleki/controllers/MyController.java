@@ -52,8 +52,10 @@ public class MyController {
 
         List<ProjectDto> projectDtos = new ArrayList<>();
         for(String project : projects){
-            Project temp = projectService.findByName(project).get();
-            projectDtos.add(new ProjectDto(temp.getId(), temp.getName(), new CompanyDto(temp.getCompany()), temp.getStart_date(), temp.getStatus()));
+            if (projectService.findByName(project).isPresent()){
+                Project temp = projectService.findByName(project).get();
+                projectDtos.add(new ProjectDto(temp.getId(), temp.getName(), new CompanyDto(temp.getCompany()), temp.getStart_date(), temp.getStatus()));
+            }
         }
         return ResponseEntity.ok(projectDtos);
     }
