@@ -299,3 +299,15 @@ a:hover {
 .submit:active {
     background-color: #06b;
 }
+
+.worn{
+    background-color: #CD5C5C;
+    border-radius: 20px;
+    box-sizing: border-box;
+    line-height: 0.2;
+    color: black;
+    width: 80%;
+    height: max-content;
+    padding: 20px 0 ;
+    margin: 5px auto;
+}

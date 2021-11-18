@@ -22,6 +22,12 @@ async function createProject(credentials) { //credentials as param
 
 }
 
+const STYLE = {
+    worn: {
+        display: 'none'
+    }
+};
+
 class CreateProject extends Component {
     static contextTypes = {
         router: PropTypes.object
@@ -32,7 +38,8 @@ class CreateProject extends Component {
             _name: '',
             _company: 0,
             _start_date: '',
-            _status: '',
+            _status: 'ACTIVE',
+            warn: '',
             code: props.code ? props.code : '666',
             description: props.description ? props.description : 'Unknown error'
         };
@@ -75,7 +82,17 @@ class CreateProject extends Component {
         const cookies = new Cookies();
         cookies.set('req', req, {path: '/projects'});
 
-        this.props.history.push('/projects');
+        if (req.id < 0){
+            this.setState({
+                ['warn']: req.name
+            });
+            STYLE.worn = {display: 'block'};
+        } else{
+            this.props.history.push('/projects');
+            STYLE.worn = {display: 'none'};
+        }
+
+
     }
 
 
@@ -84,6 +101,10 @@ class CreateProject extends Component {
         return (
             <div className="mainmainmain">
                 <Header />
+
+                <div className="worn" style={STYLE.worn}>
+                    <span id="error_text">{this.state.warn}</span>
+                </div>
 
                 <div className="help">
                     <p>Формат даты: гггг-мм-дд</p>

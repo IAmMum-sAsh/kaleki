@@ -23,6 +23,12 @@ async function setWorkerOnProject(credentials) { //credentials as param
 
 }
 
+const STYLE = {
+    worn: {
+        display: 'none'
+    }
+};
+
 class SetWorkerOnProject extends Component {
     static contextTypes = {
         router: PropTypes.object
@@ -36,6 +42,7 @@ class SetWorkerOnProject extends Component {
             _rate: 0,
             _base_salary: 0,
             _week_work_time: 0,
+            warn: '',
             code: props.code ? props.code : '666',
             description: props.description ? props.description : 'Unknown error'
         };
@@ -72,7 +79,15 @@ class SetWorkerOnProject extends Component {
         const cookies = new Cookies();
         cookies.set('req', req, {path: '/projects'});
 
-        // this.props.history.push('/projects');
+        if (req.rate < 0){
+            this.setState({
+                ['warn']: req.position
+            });
+            STYLE.worn = {display: 'block'};
+        } else{
+            STYLE.worn = {display: 'none'};
+            window.location.reload();
+        }
     }
 
 
@@ -81,6 +96,11 @@ class SetWorkerOnProject extends Component {
         return (
             <div className="mainmainmain">
                 <Header />
+
+                <div className="worn" style={STYLE.worn}>
+                    <span id="error_text">{this.state.warn}</span>
+                </div>
+
                 <HelpComponent />
 
                 <h1>Поставить работника на проект</h1>

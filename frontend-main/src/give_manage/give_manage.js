@@ -22,6 +22,12 @@ async function giveManagePut(credentials) { //credentials as param
 
 }
 
+const STYLE = {
+    worn: {
+        display: 'none'
+    }
+};
+
 class GiveManage extends Component {
     static contextTypes = {
         router: PropTypes.object
@@ -30,6 +36,7 @@ class GiveManage extends Component {
         super(props, context);
         this.state = {
             _id: 1,
+            warn: '',
             code: props.code ? props.code : '666',
             description: props.description ? props.description : 'Unknown error'
         };
@@ -63,7 +70,16 @@ class GiveManage extends Component {
         const cookies = new Cookies();
         cookies.set('id', token.id, {path: '/give_manage'});
 
-        this.props.history.push("/give_manage");
+        if (token.id < 0){
+            this.setState({
+                ['warn']: token.email
+            });
+            STYLE.worn = {display: 'block'};
+        } else{
+            this.props.history.push("/give_manage");
+            STYLE.worn = {display: 'none'};
+            window.location.reload();
+        }
     }
 
 
@@ -72,6 +88,10 @@ class GiveManage extends Component {
         return (
             <div className="mainmainmain">
                 <Header />
+
+                <div className="worn" style={STYLE.worn}>
+                    <span id="error_text">{this.state.warn}</span>
+                </div>
 
                 <h1>Дать работнику права менеджера</h1>
                 <div className="form" noValidate>

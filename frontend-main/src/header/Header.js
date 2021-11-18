@@ -165,7 +165,7 @@ class Header extends Component {
         const { data_p } = this.state;
         const { userhref } = this.state;
 
-        console.log(this.state.role)
+        console.log(this.state.name + ' ' + this.state.role)
         return (
             <div>
                 {/*<AuthElement />*/}
@@ -180,7 +180,6 @@ class Header extends Component {
                         <a className='p-2 text-white' href='/companies'>Компании</a>
                         <a className='p-2 text-white' href='/projects'>Проекты</a>
                         {this.renderBtnWork()}
-                        <a className='p-2 text-white' href='/about'>О нас</a>
 
                         {/*<a href={userhref} >*/}
                         {/*    <img className='user-nav-img' src={data_p} />*/}

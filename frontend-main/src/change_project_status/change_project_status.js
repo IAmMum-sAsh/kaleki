@@ -23,6 +23,12 @@ async function changeProjectStatus(credentials) { //credentials as param
 
 }
 
+const STYLE = {
+    worn: {
+        display: 'none'
+    }
+};
+
 class ChangeProjectStatus extends Component {
     static contextTypes = {
         router: PropTypes.object
@@ -32,6 +38,7 @@ class ChangeProjectStatus extends Component {
         this.state = {
             _project_id: 0,
             _status: '',
+            warn: '',
             code: props.code ? props.code : '666',
             description: props.description ? props.description : 'Unknown error'
         };
@@ -72,7 +79,15 @@ class ChangeProjectStatus extends Component {
         const cookies = new Cookies();
         cookies.set('req', req, {path: '/projects'});
 
-        this.props.history.push('/projects');
+        if (req.id < 0){
+            this.setState({
+                ['warn']: req.name
+            });
+            STYLE.worn = {display: 'block'};
+        } else{
+            this.props.history.push('/projects');
+            STYLE.worn = {display: 'none'};
+        }
     }
 
 
@@ -81,6 +96,10 @@ class ChangeProjectStatus extends Component {
         return (
             <div className="mainmainmain">
                 <Header />
+
+                <div className="worn" style={STYLE.worn}>
+                    <span id="error_text">{this.state.warn}</span>
+                </div>
 
                 <h1>Изменить статус проекта</h1>
                 <div className="form" noValidate>

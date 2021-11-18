@@ -20,9 +20,15 @@ async function writeOff(credentials, id) { //credentials as param
         },
         body: JSON.stringify(credentials)
     })
-        .then(data => data.json())
+        .then(data => data.json());
 
 }
+
+const STYLE = {
+    worn: {
+        display: 'none'
+    }
+};
 
 class MyProjectById extends Component {
     static contextTypes = {
@@ -34,6 +40,7 @@ class MyProjectById extends Component {
             page_id: 0,
             projects: [],
             _hours: 0,
+            worn: '',
             code: props.code ? props.code : '666',
             description: props.description ? props.description : 'Unknown error'
         };
@@ -65,8 +72,19 @@ class MyProjectById extends Component {
         const cookies = new Cookies();
         cookies.set('hours', req.hours, {path: ('/my_projects/' + this.state.page_id)});
 
-        this.props.history.push(('/my_projects/' + this.state.page_id));
-        window.location.reload();
+        console.log(req);
+
+        if (req.id < 0){
+            this.setState({
+                ['warn']: req.name
+            });
+            STYLE.worn = {display: 'block'};
+        } else{
+            this.props.history.push(('/my_projects/' + this.state.page_id));
+            STYLE.worn = {display: 'none'};
+            window.location.reload();
+        }
+
     }
 
 
@@ -163,6 +181,10 @@ class MyProjectById extends Component {
         return (
             <div className="mainmainmain">
                 <Header />
+
+                <div className="worn" style={STYLE.worn}>
+                    <span id="error_text">{this.state.warn}</span>
+                </div>
 
                 <h1>Списать часы</h1>
                 <div className='page-wrap d-flex flex-row align-items-center pt-5 maindiv'>
