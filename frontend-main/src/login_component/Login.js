@@ -19,7 +19,7 @@ import {Copyright} from "@material-ui/icons";
 import {withStyles} from "@material-ui/core";
 // import Header from "../Header";
 import printValue from "yup/es/util/printValue";
-import {useCookies} from "react-cookie";
+import {useCookies, withCookies} from "react-cookie";
 import Cookies from 'universal-cookie';
 import {useHistory} from "react-router";
 import history from './history';
@@ -254,12 +254,6 @@ class Login extends Component {
                             Войти!
                         </Button>
                         <Grid container>
-                            {/*<Grid item xs>*/}
-                            {/*    /!*TODO: *!/*/}
-                            {/*    <Link href="#" variant="body2">*/}
-                            {/*        Забыли пароль?*/}
-                            {/*    </Link>*/}
-                            {/*</Grid>*/}
                             <Grid item sm>
                                 <Link href="/signup" variant="body2">
                                     {"Еще нет у нас аккаунта? Зарегистрироваться!"}
@@ -274,4 +268,4 @@ class Login extends Component {
 
 }
 
-export default withStyles(useStyles)(Login);
+export default withCookies(withStyles(useStyles)(Login));

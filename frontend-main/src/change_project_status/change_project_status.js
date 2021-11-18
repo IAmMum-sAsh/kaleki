@@ -4,6 +4,7 @@ import './change_project_status.css';
 import Header from "../header/Header";
 import Cookies from "universal-cookie";
 import PropTypes from "prop-types";
+import HelpComponent from "../help_position_component/help_component";
 
 async function changeProjectStatus(credentials) { //credentials as param
     console.log(JSON.stringify(credentials));
@@ -50,6 +51,14 @@ class ChangeProjectStatus extends Component {
         });
     }
 
+    handleChange = (event) => {
+        const value = event.target.value;
+        const name = '_status';
+        this.setState({
+            [name]: value
+        });
+    };
+
 
     handleSubmit = async e => {
         e.preventDefault();
@@ -88,14 +97,17 @@ class ChangeProjectStatus extends Component {
                         <label htmlFor="project_id" className="placeholder">ID проекта</label>
                     </div>
                     <div className="input-container ic1">
-                        <input
-                            className="input" type="text" placeholder=" "
+                        <select className="input" name="_status"
+                            labelId="demo-simple-select-label"
                             id="status"
+                            value={this.state._status}
                             label="Статус"
-                            name="_status"
-                            onChange={this.handleInputChange}
-                            autocomplete="off"
-                        />
+                            onChange={this.handleChange}
+                        >
+                            <option value={'ACTIVE'}>ACTIVE</option>
+                            <option value={'FROZEN'}>FROZEN</option>
+                            <option value={'CLOSED'}>CLOSED</option>
+                        </select>
                         <div className="cut"></div>
                         <label htmlFor="status" className="placeholder">Статус</label>
                     </div>

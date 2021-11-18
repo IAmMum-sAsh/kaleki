@@ -1,0 +1,15 @@
+
+
+.help{
+    background-color: #15172b;
+    border-radius: 20px;
+    box-sizing: border-box;
+    position: absolute;
+    /*font-size: small;*/
+    line-height: 0.2;
+    color: #9daccb;
+    top: 250px;
+    right: 20px;
+    width: 20%;
+    padding: 20px 0 0 0 ;
+}

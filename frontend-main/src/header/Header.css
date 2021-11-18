@@ -16,3 +16,10 @@ body {
     margin-bottom: 0 !important;
     background: rgba(0, 0, 0, 0.58);
 }
+
+.user-span{
+    font-weight: normal;
+}
+.user-name{
+    font-weight: bold;
+}

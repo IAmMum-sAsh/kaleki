@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.mirea.kaleki.dto.NameDto;
 import ru.mirea.kaleki.dto.PositionDto;
 import ru.mirea.kaleki.dto.RoleDto;
 import ru.mirea.kaleki.entitys.Position;
@@ -50,5 +51,16 @@ public class HelpComtroller {
         }
 
         return ResponseEntity.ok(positionDtos);
+    }
+
+    @GetMapping("/get_name")
+    public ResponseEntity<NameDto> getName(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        User currentUser = userService.findByEmail(currentUserName).orElseThrow(
+                () -> {throw new MyNotFoundException("User not found");}
+        );
+
+        return ResponseEntity.ok(new NameDto(userService.findById(currentUser.getId()).get().getUsername()));
     }
 }

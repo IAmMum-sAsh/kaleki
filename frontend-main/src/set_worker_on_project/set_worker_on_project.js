@@ -4,6 +4,7 @@ import './set_worker_on_project.css';
 import Header from "../header/Header";
 import Cookies from "universal-cookie";
 import PropTypes from "prop-types";
+import HelpComponent from "../help_position_component/help_component";
 
 async function setWorkerOnProject(credentials) { //credentials as param
     console.log(JSON.stringify(credentials));
@@ -80,6 +81,7 @@ class SetWorkerOnProject extends Component {
         return (
             <div className="mainmainmain">
                 <Header />
+                <HelpComponent />
 
                 <h1>Поставить работника на проект</h1>
                 <div className="form" noValidate>

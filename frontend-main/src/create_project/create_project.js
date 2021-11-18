@@ -52,6 +52,14 @@ class CreateProject extends Component {
         });
     }
 
+    handleChange = (event) => {
+        const value = event.target.value;
+        const name = '_status';
+        this.setState({
+            [name]: value
+        });
+    };
+
 
     handleSubmit = async e => {
         e.preventDefault();
@@ -76,6 +84,10 @@ class CreateProject extends Component {
         return (
             <div className="mainmainmain">
                 <Header />
+
+                <div className="help">
+                    <p>Формат даты: гггг-мм-дд</p>
+                </div>
 
                 <h1>Создать проект</h1>
                 <div className="form" noValidate>
@@ -116,16 +128,18 @@ class CreateProject extends Component {
                         <label htmlFor="start_date" className="placeholder">Дата старта</label>
                     </div>
                     <div className="input-container ic1">
-                        <input
-                            className="input" type="text" placeholder=" "
-                            id="status"
-                            label="Статус"
-                            name="_status"
-                            onChange={this.handleInputChange}
-                            autocomplete="off"
-                        />
+                        <select className="input" name="_status"
+                                labelId="demo-simple-select-label"
+                                id="status"
+                                value={this.state._status}
+                                label="Статус"
+                                onChange={this.handleChange}
+                        >
+                            <option value={'ACTIVE'}>ACTIVE</option>
+                            <option value={'FROZEN'}>FROZEN</option>
+                        </select>
                         <div className="cut"></div>
-                        <label htmlFor="hours" className="placeholder">Статус</label>
+                        <label htmlFor="status" className="placeholder">Статус</label>
                     </div>
                     <button
                         type="submit"

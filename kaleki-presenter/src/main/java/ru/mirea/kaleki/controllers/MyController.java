@@ -101,6 +101,7 @@ public class MyController {
 
         if (!project.getStatus().equals("ACTIVE")){
             projectDtoExtended.setName("Проект неактивен, часы списать нельзя");
+            projectDtoExtended.setId(-1);
             return ResponseEntity.ok(projectDtoExtended);
         }
 

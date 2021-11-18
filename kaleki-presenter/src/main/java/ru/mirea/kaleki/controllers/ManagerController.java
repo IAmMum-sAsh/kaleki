@@ -49,7 +49,7 @@ public class ManagerController {
             userService.giveManage(user);
             return ResponseEntity.ok(new UserDto(user));
         } else{
-            return ResponseEntity.ok(new UserDto(0, "Невозможно присвоить статус", "сотруднику сторонней компании"));
+            return ResponseEntity.ok(new UserDto(-1, "Невозможно присвоить статус", "сотруднику сторонней компании"));
         }
     }
 
@@ -79,7 +79,7 @@ public class ManagerController {
         if (companies.contains(companyService.getCompanyById(projectDtoPayload.getCompany()).getName())) {
             return ResponseEntity.ok(new ProjectDto(projectService.createProject(projectDtoPayload)));
         } else{
-            return ResponseEntity.ok(new ProjectDto(0, "Невозможно создать проект в подразделении другой компании", new CompanyDto(), new Date(0), ""));
+            return ResponseEntity.ok(new ProjectDto(-1, "Невозможно создать проект в подразделении другой компании", new CompanyDto(), new Date(0), ""));
         }
     }
 
@@ -94,7 +94,9 @@ public class ManagerController {
         UsersOnProjects usersOnProjects;
         UsersOnProjectsDto usersOnProjectsDto = new UsersOnProjectsDto();
 
-        List<String> workerCompanies = Arrays.asList(userService.findById(usersOnProjectsDtoPayload.getUser_id()).get().getCompany().split("#"));
+        User user = userService.findById(usersOnProjectsDtoPayload.getUser_id()).get();
+
+        List<String> workerCompanies = Arrays.asList(user.getCompany().split("#"));
         List<String> managerCompanies = Arrays.asList(currentUser.getCompany().split("#"));
         boolean flag = false;
 
@@ -114,11 +116,14 @@ public class ManagerController {
             usersOnProjectsDto.setRate(usersOnProjects.getRate());
             usersOnProjectsDto.setBase_salary(usersOnProjects.getBase_salary());
 
+            userService.updateUserProject(user, usersOnProjects.getUsersOnProjectsPK().getProject().getName());
+            userService.updateUserCompany(user, usersOnProjects.getUsersOnProjectsPK().getProject().getCompany().getName());
+
         } else{
             usersOnProjectsDto.setProject(new ProjectDto());
             usersOnProjectsDto.setUser(new UserDto());
             usersOnProjectsDto.setPosition("Нельзя поставить на проект работника чужой организации");
-            usersOnProjectsDto.setRate(0);
+            usersOnProjectsDto.setRate(-1);
             usersOnProjectsDto.setBase_salary(0);
         }
 
@@ -138,7 +143,7 @@ public class ManagerController {
         if (companies.contains(projectService.findById(payload.getProject_id()).get().getCompany().getName())) {
             return ResponseEntity.ok(new ProjectDto(projectService.updateProjectStatus(payload)));
         } else{
-            return ResponseEntity.ok(new ProjectDto(0, "Невозможно изменить проект в подразделении другой компании", new CompanyDto(), new Date(0), ""));
+            return ResponseEntity.ok(new ProjectDto(-1, "Невозможно изменить проект в подразделении другой компании", new CompanyDto(), new Date(0), ""));
         }
     }
 }
