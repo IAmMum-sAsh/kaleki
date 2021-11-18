@@ -49,7 +49,7 @@ public class ManagerController {
             userService.giveManage(user);
             return ResponseEntity.ok(new UserDto(user));
         } else{
-            return ResponseEntity.ok(new UserDto(-1, "Невозможно присвоить статус", "сотруднику сторонней компании"));
+            return ResponseEntity.ok(new UserDto(-1, "Невозможно присвоить статус сотруднику сторонней компании", ""));
         }
     }
 

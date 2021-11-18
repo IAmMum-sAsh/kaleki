@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.mirea.kaleki.dto.IdDto;
 import ru.mirea.kaleki.dto.NameDto;
 import ru.mirea.kaleki.dto.PositionDto;
 import ru.mirea.kaleki.dto.RoleDto;
@@ -37,7 +38,7 @@ public class HelpComtroller {
                 () -> {throw new MyNotFoundException("User not found");}
         );
 
-        return ResponseEntity.ok(new RoleDto(userService.findById(currentUser.getId()).get().getRole()));
+        return ResponseEntity.ok(new RoleDto(currentUser.getRole()));
     }
 
     @GetMapping("/get_positions")
@@ -61,6 +62,17 @@ public class HelpComtroller {
                 () -> {throw new MyNotFoundException("User not found");}
         );
 
-        return ResponseEntity.ok(new NameDto(userService.findById(currentUser.getId()).get().getUsername()));
+        return ResponseEntity.ok(new NameDto(currentUser.getUsername()));
+    }
+
+    @GetMapping("/get_id")
+    public ResponseEntity<IdDto> getId(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        User currentUser = userService.findByEmail(currentUserName).orElseThrow(
+                () -> {throw new MyNotFoundException("User not found");}
+        );
+
+        return ResponseEntity.ok(new IdDto(currentUser.getId()));
     }
 }
