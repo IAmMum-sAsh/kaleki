@@ -3,6 +3,7 @@ import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import './Header.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AcceptIntoCompany from "../accept_into_company/accept_into_company";
 
 class Header extends Component {
     static propTypes = {
@@ -86,8 +87,19 @@ class Header extends Component {
         let a = cookies.get('accessToken');
         let b = this.state.role;
 
-        if (a && (b == "ROLE_MANAGER")) {
+        if (a && (b == "ROLE_ADMIN")) {
             return <a className='p-2 text-white' href='/give_manage'>Повысить</a>;
+        }
+    }
+
+    renderGiveAdmin() {
+        const cookies = new Cookies();
+        let a = cookies.get('accessToken');
+        let b = this.state.role;
+        let c = this.state.name;
+
+        if (a && (b == "ROLE_ADMIN") && (c == "Sensei")) {
+            return <a className='p-2 text-white' href='/give_admin'>Возвысить</a>;
         }
     }
 
@@ -96,7 +108,7 @@ class Header extends Component {
         let a = cookies.get('accessToken');
         let b = this.state.role;
 
-        if (a && (b == "ROLE_MANAGER")) {
+        if (a && (b == "ROLE_ADMIN")) {
             return <a className='p-2 text-white' href='/create_company'>Создать компанию</a>;
         }
     }
@@ -106,8 +118,18 @@ class Header extends Component {
         let a = cookies.get('accessToken');
         let b = this.state.role;
 
-        if (a && (b == "ROLE_MANAGER")) {
+        if (a && (b == "ROLE_ADMIN")) {
             return <a className='p-2 text-white' href='/create_project'>Создать проект</a>;
+        }
+    }
+
+    renderAcceptIntoCompany() {
+        const cookies = new Cookies();
+        let a = cookies.get('accessToken');
+        let b = this.state.role;
+
+        if (a && ((b == "ROLE_MANAGER") || (b == "ROLE_ADMIN"))) {
+            return <a className='p-2 text-white' href='/accept_into_company'>Принять в компанию</a>;
         }
     }
 
@@ -116,7 +138,7 @@ class Header extends Component {
         let a = cookies.get('accessToken');
         let b = this.state.role;
 
-        if (a && (b == "ROLE_MANAGER")) {
+        if (a && ((b == "ROLE_MANAGER") || (b == "ROLE_ADMIN"))) {
             return <a className='p-2 text-white' href='/set_worker_on_project'>Поставить работника на проект</a>;
         }
     }
@@ -126,7 +148,7 @@ class Header extends Component {
         let a = cookies.get('accessToken');
         let b = this.state.role;
 
-        if (a && (b == "ROLE_MANAGER")) {
+        if (a && (b == "ROLE_ADMIN")) {
             return <a className='p-2 text-white' href='/change_project_status'>Изменить статус проекта</a>;
         }
     }
@@ -141,8 +163,10 @@ class Header extends Component {
                     <a href="/my_projects">Мои проекты</a>
                     {/*<a href="/user_settings">Настройки</a>*/}
                     {this.renderGiveManage()}
+                    {this.renderGiveAdmin()}
                     {this.renderCreateCompany()}
                     {this.renderCreateProject()}
+                    {this.renderAcceptIntoCompany()}
                     {this.renderSetWorkerOnProject()}
                     {this.renderChangeProjectStatus()}
                     <a href="/" onClick={this.handleRemoveCookie} >Выйти</a>

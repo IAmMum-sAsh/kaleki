@@ -40,6 +40,7 @@ class CreateProject extends Component {
             _start_date: '',
             _status: 'ACTIVE',
             warn: '',
+            _salary: 0,
             code: props.code ? props.code : '666',
             description: props.description ? props.description : 'Unknown error'
         };
@@ -75,9 +76,10 @@ class CreateProject extends Component {
         let company = this.state._company;
         let start_date = this.state._start_date;
         let status = this.state._status;
+        let salary = this.state._salary;
 
         const req = await createProject({
-            name, company, start_date, status
+            name, company, start_date, status, salary
         },);
         const cookies = new Cookies();
         cookies.set('req', req, {path: '/projects'});
@@ -161,6 +163,18 @@ class CreateProject extends Component {
                         </select>
                         <div className="cut"></div>
                         <label htmlFor="status" className="placeholder">Статус</label>
+                    </div>
+                    <div className="input-container ic1">
+                        <input
+                            className="input" type="text" placeholder=" "
+                            id="salary"
+                            label="ЗП"
+                            name="_salary"
+                            onChange={this.handleInputChange}
+                            autoComplete="off"
+                        />
+                        <div className="cut"></div>
+                        <label htmlFor="salary" className="placeholder">ЗП</label>
                     </div>
                     <button
                         type="submit"

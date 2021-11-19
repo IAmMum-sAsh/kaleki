@@ -18,6 +18,8 @@ import CreateCompany from "./create_company/create_company";
 import CreateProject from "./create_project/create_project";
 import SetWorkerOnProject from "./set_worker_on_project/set_worker_on_project";
 import ChangeProjectStatus from "./change_project_status/change_project_status";
+import GiveAdmin from "./give_admin/give_admin";
+import AcceptIntoCompany from "./accept_into_company/accept_into_company";
 
 
 class App extends Component {
@@ -71,8 +73,10 @@ class App extends Component {
                 <Route exact path={'/workers'} component={Workers}/>
 
                 <Route exact path={'/give_manage'} component={GiveManage}/>
+                <Route exact path={'/give_admin'} component={GiveAdmin}/>
                 <Route exact path={'/create_company'} component={CreateCompany}/>
                 <Route exact path={'/create_project'} component={CreateProject}/>
+                <Route exact path={'/accept_into_company'} component={AcceptIntoCompany}/>
                 <Route exact path={'/set_worker_on_project'} component={SetWorkerOnProject}/>
                 <Route exact path={'/change_project_status'} component={ChangeProjectStatus}/>
 

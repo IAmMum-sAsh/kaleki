@@ -157,13 +157,13 @@ class SetWorkerOnProject extends Component {
                         <input
                             className="input" type="number" step="1000" placeholder=" "
                             id="base_salary"
-                            label="Базовая заработная плата"
+                            label="Базовая ЗП"
                             name="_base_salary"
                             onChange={this.handleInputChange}
                             autoComplete="off"
                         />
                         <div className="cut"></div>
-                        <label htmlFor="hours" className="placeholder">Базовая заработная плата</label>
+                        <label htmlFor="hours" className="placeholder">Базовая ЗП</label>
                     </div>
                     <button
                         type="submit"
