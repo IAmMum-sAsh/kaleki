@@ -35,22 +35,10 @@ public class UserService {
     }
 
     public Optional<User> findById(Long userId) {
-//        if (optionalUser.isPresent())
-//            log.info("User " + optionalUser.get().toString() + "found by id " + userId);
-//        else log.info("User with id '" + userId + "' not found.");
         return userRepository.findById(userId);
     }
     public Optional<User> findByEmail(String email) {
-//        if (optionalUser.isPresent())
-//            log.info("User " + optionalUser.get().toString() + "found by email " + email);
-//        else log.info("User with email '" + email + "' not found.");
         return userRepository.findByEmail(email);
-    }
-    public List<Optional<User>> findByCompanies(String company){
-//        if (optionalUser.size() > 0)
-//            log.info("Users " + optionalUser.toString() + "found by company " + company);
-//        else log.info("Users with company '" + company + "' not found.");
-        return userRepository.findByCompany(company);
     }
 
     public List<User> findAll() {return userRepository.findAll();}
@@ -74,6 +62,12 @@ public class UserService {
 
     public User giveManage(User user){
         user.setRole("ROLE_MANAGER");
+
+        return userRepository.save(user);
+    }
+
+    public User giveAdmin(User user){
+        user.setRole("ROLE_ADMIN");
 
         return userRepository.save(user);
     }

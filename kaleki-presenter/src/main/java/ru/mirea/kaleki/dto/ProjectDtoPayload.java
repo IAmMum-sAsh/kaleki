@@ -15,4 +15,5 @@ public class ProjectDtoPayload {
     protected Long company;
     protected Date start_date;
     protected String status;
+    protected double salary;
 }

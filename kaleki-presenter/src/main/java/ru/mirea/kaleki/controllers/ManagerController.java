@@ -27,61 +27,7 @@ public class ManagerController {
     protected UserService userService;
 
     @Autowired
-    protected CompanyService companyService;
-
-    @Autowired
-    protected ProjectService projectService;
-
-    @Autowired
     protected UsersOnProjectsService usersOnProjectsService;
-
-    @PutMapping("/give_manage")
-    public ResponseEntity<UserDto> getMyProjects(@RequestBody GiveManageDto giveManageDto){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        User currentUser = userService.findByEmail(currentUserName).orElseThrow(
-                () -> {throw new MyNotFoundException("User not found");}
-        );
-
-        User user = userService.findById(giveManageDto.getId()).get();
-
-        if (user.getCompany().equals(currentUser.getCompany())) {
-            userService.giveManage(user);
-            return ResponseEntity.ok(new UserDto(user));
-        } else{
-            return ResponseEntity.ok(new UserDto(-1, "Невозможно присвоить статус сотруднику сторонней компании", ""));
-        }
-    }
-
-    @PostMapping ("/create_company")
-    public ResponseEntity<CompanyDto> createCompany(@RequestBody CompanyDtoPayload companyDtoPayload){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        User currentUser = userService.findByEmail(currentUserName).orElseThrow(
-                () -> {throw new MyNotFoundException("User not found");}
-        );
-
-        userService.updateUserCompany(currentUser, companyDtoPayload.getName());
-
-        return ResponseEntity.ok(new CompanyDto(companyService.createCompany(companyDtoPayload, currentUser)));
-    }
-
-    @PostMapping ("/create_project")
-    public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDtoPayload projectDtoPayload){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        User currentUser = userService.findByEmail(currentUserName).orElseThrow(
-                () -> {throw new MyNotFoundException("User not found");}
-        );
-
-        List<String> companies = Arrays.asList(currentUser.getCompany().split("#"));
-
-        if (companies.contains(companyService.getCompanyById(projectDtoPayload.getCompany()).getName())) {
-            return ResponseEntity.ok(new ProjectDto(projectService.createProject(projectDtoPayload)));
-        } else{
-            return ResponseEntity.ok(new ProjectDto(-1, "Невозможно создать проект в подразделении другой компании", new CompanyDto(), new Date(0), ""));
-        }
-    }
 
     @PostMapping ("/set_worker_on_project")
     public ResponseEntity<UsersOnProjectsDto> setWorkerOnProject(@RequestBody UsersOnProjectsDtoPayload usersOnProjectsDtoPayload){
@@ -132,22 +78,5 @@ public class ManagerController {
         }
 
         return ResponseEntity.ok(usersOnProjectsDto);
-    }
-
-    @PutMapping("/change_project_status")
-    public ResponseEntity<ProjectDto> changeProjectStatus(@RequestBody ChangeProjectStatusDtoPayload payload){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        User currentUser = userService.findByEmail(currentUserName).orElseThrow(
-                () -> {throw new MyNotFoundException("User not found");}
-        );
-
-        List<String> companies = Arrays.asList(currentUser.getCompany().split("#"));
-
-        if (companies.contains(projectService.findById(payload.getProject_id()).get().getCompany().getName())) {
-            return ResponseEntity.ok(new ProjectDto(projectService.updateProjectStatus(payload)));
-        } else{
-            return ResponseEntity.ok(new ProjectDto(-1, "Невозможно изменить проект в подразделении другой компании", new CompanyDto(), new Date(0), ""));
-        }
     }
 }
