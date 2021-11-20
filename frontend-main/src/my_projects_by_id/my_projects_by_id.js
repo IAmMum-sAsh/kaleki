@@ -5,14 +5,12 @@ import Header from "../header/Header";
 import Cookies from "universal-cookie";
 import PropTypes from "prop-types";
 
-async function writeOff(credentials, id) { //credentials as param
+async function writeOff(credentials, project_id) { //credentials as param
     console.log(JSON.stringify(credentials));
     const cookies = new Cookies();
     let a = cookies.get('accessToken');
-    let data = '';
-    let projects = cookies.projects;
 
-    return fetch('/api/my_projects/'+ id + '/write_off', {
+    return fetch('/api/my_projects/'+ Number(project_id) + '/write_off', {
         method: 'PUT',
         headers: {
             'Authorization': 'Bearer ' + a,
@@ -31,11 +29,8 @@ const STYLE = {
 };
 
 class MyProjectById extends Component {
-    static contextTypes = {
-        router: PropTypes.object
-    }
-    constructor(props, context) {
-        super(props, context);
+    constructor(props) {
+        super(props);
         this.state = {
             page_id: 0,
             projects: [],
@@ -70,7 +65,7 @@ class MyProjectById extends Component {
             hours
         }, this.state.page_id);
         const cookies = new Cookies();
-        cookies.set('hours', req.hours, {path: ('/my_projects/' + this.state.page_id)});
+        // cookies.set('hours', req.hours, {path: ('/my_projects/' + this.state.page_id)});
 
         console.log(req);
 
@@ -80,7 +75,7 @@ class MyProjectById extends Component {
             });
             STYLE.worn = {display: 'block'};
         } else{
-            this.props.history.push(('/my_projects/' + this.state.page_id));
+            // this.props.history.push(('/my_projects/' + this.state.page_id));
             STYLE.worn = {display: 'none'};
             window.location.reload();
         }
@@ -93,15 +88,18 @@ class MyProjectById extends Component {
         const cookies = new Cookies();
         let a = cookies.get('accessToken');
 
-        let id =document.URL;
-        id = id.slice(34);
+        let project_id =document.URL;
+
+        let ind = project_id.lastIndexOf('my_projects/');
+
+        project_id = project_id.slice(ind+12);
         const name = 'page_id';
 
         this.setState({
-            [name]: id
+            [name]: project_id
         });
 
-        return await fetch('/api/my_projects/'+id, {
+        return await fetch('/api/my_projects/'+Number(project_id), {
             method: 'get',
             headers: new Headers({
                 'Authorization': 'Bearer ' + a,

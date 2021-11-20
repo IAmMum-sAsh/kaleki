@@ -74,6 +74,10 @@ class Header extends Component {
     }
 
     async componentDidMount() {
+        if (document.URL.includes('my_projects/')){
+            this.setState({data_p: '../avatar.png'});
+        }
+
         let prsRole = await this.getRole();
         this.setState({role: prsRole.role});
         let prsName = await this.getName();
