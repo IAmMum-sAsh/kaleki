@@ -1,0 +1,46 @@
+
+.worker-dot {
+    width: 80px;
+    height: 80px;
+    left: 15px;
+    margin-top: 10px;
+    background-color: teal;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.info{
+    display: block;
+    background-color: crimson;
+    border-radius: 20px;
+    box-sizing: border-box;
+    line-height: 0.2;
+    color: white;
+    width: 80%;
+    height: max-content;
+    padding: 20px 0 ;
+    margin: 20px auto;
+}
+
+.greenst {
+    background-color: #2E8B57;
+}
+
+.bluest {
+    background-color: #4682B4;
+}
+
+a{
+    color: black;
+}
+
+.hvr-by-id{
+    color: white;
+}
+
+.hvr-by-id:hover{
+    color: #e9fbff;
+}
+h3{
+    color: black;
+}

@@ -71,9 +71,10 @@ class MyProjects extends Component {
 
                     <input type="checkbox" className="close-form" onClick={event => {}}></input>
                     <div className="card-body">
+                        <h2>ID: {projects[i].id}</h2>
                         <h2>Дата начала: {projects[i].start_date}</h2>
                         <br />
-                        <h2>Менеджер проекта:</h2> <h3>{projects[i].company.ceo.username}</h3>
+                        <h2>Менеджер проекта:</h2> <h3 className="black-h3">{projects[i].company.ceo.username}</h3>
                         <p>Вы можете связаться с ним
                             по всем, интересующим вас вопросам по электронной почте <a className="hvr" href={"mailto:"+projects[i].company.ceo.email}>{projects[i].company.ceo.email}</a></p>
                         <br/>

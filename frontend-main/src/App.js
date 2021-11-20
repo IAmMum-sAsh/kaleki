@@ -20,6 +20,8 @@ import SetWorkerOnProject from "./set_worker_on_project/set_worker_on_project";
 import ChangeProjectStatus from "./change_project_status/change_project_status";
 import GiveAdmin from "./give_admin/give_admin";
 import AcceptIntoCompany from "./accept_into_company/accept_into_company";
+import ProjectsById from "./projects_by_id/projects_by_id";
+import CompaniesById from "./companies_by_id/companies_by_id";
 
 
 class App extends Component {
@@ -69,7 +71,9 @@ class App extends Component {
                 <Route exact path={'/my_projects/**'} component={MyProjectById}/>
 
                 <Route exact path={'/companies'} component={Companies}/>
+                <Route exact path={'/companies/**'} component={CompaniesById}/>
                 <Route exact path={'/projects'} component={Projects}/>
+                <Route exact path={'/projects/**'} component={ProjectsById}/>
                 <Route exact path={'/workers'} component={Workers}/>
 
                 <Route exact path={'/give_manage'} component={GiveManage}/>

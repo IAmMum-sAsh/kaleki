@@ -74,7 +74,7 @@ class Header extends Component {
     }
 
     async componentDidMount() {
-        if (document.URL.includes('my_projects/')){
+        if (document.URL.includes('my_projects/') || document.URL.includes('projects/') || document.URL.includes('companies/')){
             this.setState({data_p: '../avatar.png'});
         }
 
@@ -84,6 +84,15 @@ class Header extends Component {
         this.setState({name: prsName.name});
         let prsId = await this.getId();
         this.setState({id: prsId.id});
+    }
+
+    renderMyProjects() {
+        const cookies = new Cookies();
+        let a = cookies.get('accessToken');
+
+        if (a) {
+            return <a className='p-2 text-white' href="/my_projects">Мои проекты</a>;
+        }
     }
 
     renderGiveManage() {
@@ -164,8 +173,6 @@ class Header extends Component {
         if (b) { //войдено
             return (
                 <div className="dropdown-child">
-                    <a href="/my_projects">Мои проекты</a>
-                    {/*<a href="/user_settings">Настройки</a>*/}
                     {this.renderGiveManage()}
                     {this.renderGiveAdmin()}
                     {this.renderCreateCompany()}
@@ -188,7 +195,6 @@ class Header extends Component {
     renderBtnWork() {
         const cookies = new Cookies();
         let a = cookies.get('accessToken');
-        let b = cookies.get('username');
 
         if (a) {
             return <a className='p-2 text-white' href='/workers'>Работники</a>;
@@ -222,6 +228,7 @@ class Header extends Component {
                         <a className='p-2 text-white' href='/companies'>Компании</a>
                         <a className='p-2 text-white' href='/projects'>Проекты</a>
                         {this.renderBtnWork()}
+                        {this.renderMyProjects()}
                         <div className="dropdown">
                             <div >
                                 <img className='user-nav-img' src={data_p}  alt='avatar'/>

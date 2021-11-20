@@ -75,7 +75,7 @@ class AcceptIntoCompany extends Component {
             <div className="mainmainmain">
                 <Header />
 
-                <h1>Создать проект</h1>
+                <h1>Принять работника в компанию</h1>
                 <div className="form" noValidate>
                     <div className="input-container ic1">
                         <input

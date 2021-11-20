@@ -1,46 +1,36 @@
-
 import React, {Component} from 'react';
-import './projects.css';
+import './companies_by_id.css';
 import Header from "../header/Header";
 import Cookies from "universal-cookie";
 
-class Card extends React.Component {
-    render() {
-        return(
-            <div className="card">
-                <span className="comp-name"><span className="dot"></span>Внутренний субподряд СБД (Юникредит) и что-нить еще</span>
-
-                <div className="close-form"></div>
-                <div className="card-body">
-                    <h2>Дата начала: 2020-09-28</h2>
-                    <br />
-                    <h2>Менеджер проекта:</h2> <h3>Соловьёв Дмитрий Ксандрович</h3>
-                    <p>Вы можете связаться с ним
-                        по всем, интересующим вас вопросам по электронной почте <a href="mailto:sdx@big.data">sdx@big.data</a></p>
-                    <br/>
-                    <h5>Компания: Просрочка</h5> <h5>(Калининградская область, город Подольск, бульвар Балканская, 92)</h5>
-                </div>
-            </div>
-        )
-    }
-}
-
-class Projects extends Component {
+class CompaniesById extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            page_id: 0,
             projects: [],
             code: props.code ? props.code : '666',
             description: props.description ? props.description : 'Unknown error'
-        }
+        };
+
     }
 
-    async getProjects() {
+    async getMyProjectById() {
         const cookies = new Cookies();
         let a = cookies.get('accessToken');
-        let b = cookies.get('username');
 
-        return await fetch('/api/projects', {
+        let project_id =document.URL;
+
+        let ind = project_id.lastIndexOf('companies/');
+
+        project_id = project_id.slice(ind+10);
+        const name = 'page_id';
+
+        this.setState({
+            [name]: project_id
+        });
+
+        return await fetch('/api/companies/'+Number(project_id), {
             method: 'get',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -49,22 +39,37 @@ class Projects extends Component {
     }
 
     async componentDidMount() {
-        let prs = await this.getProjects();
+        let prs = await this.getMyProjectById();
         this.setState({projects: prs});
     }
 
-    renderProjects() {
+    renderInfo(){
         let projects = this.state.projects;
 
         if (projects == null) {return;}
 
         let projectCards = [];
 
-        function byField(field) {
-            return (a, b) => a[field] > b[field] ? 1 : -1;
-        }
+        projectCards.push(
+            <div className={"company-info"}>
+                <h2>Компания: {projects.name} (ID: {projects.id})</h2>
+                <h5>
+                    Гендиректор: {projects.ceo_username} (<a className="hvr-by-id" href={"mailto:"+projects.ceo_email}>{projects.ceo_email})</a><br/>
+                    Адрес: {projects.address}
+                </h5>
+            </div>
+        );
 
-        projects.sort(byField('id'));
+        return projectCards;
+    }
+
+    renderProjects(){
+        let projects = this.state.projects.projects;
+
+        if (projects == null) {return;}
+
+        let projectCards = [];
+
         for (let i= 0; i < projects.length; ++i) {
             let clnm = "";
             if (projects[i].status == "FROZEN") {clnm = "bluest";}
@@ -89,9 +94,9 @@ class Projects extends Component {
                 </a>
             );
         }
-
         return projectCards;
     }
+
 
     render() {
         const {code, description} = this.state;
@@ -99,16 +104,16 @@ class Projects extends Component {
             <div className="mainmainmain">
                 <Header />
 
-                <h1>Проекты</h1>
+                {this.renderInfo()}
+
                 <div className='page-wrap d-flex flex-row align-items-center pt-5 maindiv'>
                     <div className='my-cards'>
                         {this.renderProjects()}
                     </div>
-
                 </div>
             </div>
         );
     }
 }
 
-export default Projects;
+export default CompaniesById;

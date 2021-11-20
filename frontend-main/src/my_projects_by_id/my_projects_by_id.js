@@ -130,6 +130,7 @@ class MyProjectById extends Component {
 
                 <input type="checkbox" className="close-form" onClick={event => {}}/>
                 <div className="card-body">
+                    <h2>ID проекта: {projects.id}</h2>
                     <h2>Должность: {projects.position}</h2>
                     <h2>Ставка: {projects.rate}</h2>
                     <h2>Базовая заработная плата: {salary}р.</h2>

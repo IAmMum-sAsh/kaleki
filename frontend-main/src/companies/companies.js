@@ -62,22 +62,23 @@ class Companies extends Component {
             let clnm = "";
             if (i != 0){
                 projectCards.push(
-                    <div className="card">
-                        <span className="comp-name"><span className={"company-dot "+clnm}></span>{companies[i].name}</span>
+                    <a href={"/companies/"+companies[i].id}>
+                        <div className="card">
+                            <span className="comp-name"><span className={"company-dot "+clnm}></span>{companies[i].name}</span>
 
-                        <input type="checkbox" className="close-form" onClick={event => {}}></input>
-                        <div className="card-body">
-                            <h2>ID: {companies[i].id}</h2>
-                            <br />
-                            <h2>Директор компании:</h2> <h3>{companies[i].ceo.username}</h3>
-                            <p>Вы можете связаться с ним
-                                по всем, интересующим вас вопросам по электронной почте <a className="hvr" href={"mailto:"+companies[i].ceo.email}>{companies[i].ceo.email}</a></p>
-                            <br/><h5>({companies[i].address})</h5>
+                            <input type="checkbox" className="close-form" onClick={event => {}}></input>
+                            <div className="card-body">
+                                <h2>ID: {companies[i].id}</h2>
+                                <br />
+                                <h2>Директор компании:</h2> <h3>{companies[i].ceo.username}</h3>
+                                <p>Вы можете связаться с ним
+                                    по всем, интересующим вас вопросам по электронной почте <a className="hvr" href={"mailto:"+companies[i].ceo.email}>{companies[i].ceo.email}</a></p>
+                                <br/><h5>({companies[i].address})</h5>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 );
             }
-
         }
 
         return projectCards;

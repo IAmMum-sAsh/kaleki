@@ -72,7 +72,7 @@ class GiveAdmin extends Component {
             <div className="mainmainmain">
                 <Header />
 
-                <h1>Дать работнику права менеджера</h1>
+                <h1>Дать работнику права администратора</h1>
                 <div className="form" noValidate>
                     <div className="input-container ic1">
                         <input

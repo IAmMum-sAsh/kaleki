@@ -1,0 +1,14 @@
+.company-info{
+    display: block;
+    background-color: #9370DB;
+    border-radius: 20px;
+    box-sizing: border-box;
+    color: white;
+    width: 80%;
+    height: max-content;
+    padding: 20px 0 ;
+    margin: 20px auto;
+}
+h3{
+    color: black;
+}
