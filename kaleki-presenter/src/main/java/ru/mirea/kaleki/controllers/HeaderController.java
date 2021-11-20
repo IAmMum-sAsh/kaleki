@@ -6,9 +6,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.mirea.kaleki.dto.CompanyDto;
+import ru.mirea.kaleki.dto.CompanyDtoExtended;
 import ru.mirea.kaleki.dto.ProjectDto;
+import ru.mirea.kaleki.dto.ProjectDtoExtended;
 import ru.mirea.kaleki.entitys.Company;
 import ru.mirea.kaleki.entitys.Project;
 import ru.mirea.kaleki.entitys.User;
@@ -45,6 +48,11 @@ public class HeaderController {
         return ResponseEntity.ok(companyDtos);
     }
 
+    @GetMapping("/companies/{id}")
+    public ResponseEntity<CompanyDtoExtended> getCompanyById(@PathVariable long id){
+        return ResponseEntity.ok(companyService.companyInfo(id));
+    }
+
     @GetMapping("/projects")
     public ResponseEntity<List<ProjectDto>> getProjects(){
         List<ProjectDto> projectDtos = new ArrayList<>();
@@ -54,6 +62,11 @@ public class HeaderController {
             projectDtos.add(new ProjectDto(project.getId(), project.getName(), new CompanyDto(project.getCompany()), project.getStart_date(), project.getStatus()));
         }
         return ResponseEntity.ok(projectDtos);
+    }
+
+    @GetMapping("/projects/{id}")
+    public ResponseEntity<ProjectDtoExtended> getProjectById(@PathVariable long id){
+        return ResponseEntity.ok(projectService.projectInfo(id));
     }
 
     @GetMapping("/workers")
