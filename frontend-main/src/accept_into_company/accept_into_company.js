@@ -65,7 +65,7 @@ class AcceptIntoCompany extends Component {
         const cookies = new Cookies();
         cookies.set('req', req, {path: '/projects'});
 
-        // window.location.reload();
+        this.props.history.push('/workers');
     }
 
 

@@ -128,15 +128,15 @@ class MyProjectById extends Component {
         let max_hours = 40 * projects.rate;
         projectCards.push(
             <div className="card">
-                <span className="comp-name"><span className={"dot "+clnm}></span>{projects.name}</span>
+                <span className="comp-name"><span className={"dot " + clnm}/>{projects.name}</span>
 
-                <input type="checkbox" className="close-form" onClick={event => {}}></input>
+                <input type="checkbox" className="close-form" onClick={event => {}}/>
                 <div className="card-body">
                     <h2>Должность: {projects.position}</h2>
                     <h2>Ставка: {projects.rate}</h2>
                     <h2>Базовая заработная плата: {salary}р.</h2>
                     <br />
-                    <progress  max={max_hours} value={projects.week_work_time}></progress>
+                    <progress  max={max_hours} value={projects.week_work_time}/>
                     <h5>{projects.week_work_time} из {max_hours} часов</h5>
                     <br />
                     <p>Менеджер проекта: <b>{projects.ceo_username}</b>.
