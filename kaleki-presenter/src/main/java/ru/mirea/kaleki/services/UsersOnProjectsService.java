@@ -13,21 +13,42 @@ import ru.mirea.kaleki.repositories.UsersOnProjectsRepository;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Users on projects service.
+ */
 @Service
 @Slf4j
 public class UsersOnProjectsService {
+    /**
+     * The Users on projects repository.
+     */
     @Autowired
     protected UsersOnProjectsRepository usersOnProjectsRepository;
 
+    /**
+     * The User service.
+     */
     @Autowired
     protected UserService userService;
 
+    /**
+     * The Project service.
+     */
     @Autowired
     protected ProjectService projectService;
 
+    /**
+     * The Position service.
+     */
     @Autowired
     protected PositionService positionService;
 
+    /**
+     * Sets worker on project.
+     *
+     * @param usersOnProjectsDtoPayload the users on projects dto payload
+     * @return the worker on project
+     */
     public UsersOnProjects setWorkerOnProject(UsersOnProjectsDtoPayload usersOnProjectsDtoPayload) {
         UsersOnProjects usersOnProjects = new UsersOnProjects();
         User user = userService.findById(usersOnProjectsDtoPayload.getUser_id()).get();
@@ -47,11 +68,23 @@ public class UsersOnProjectsService {
         return usersOnProjectsRepository.save(usersOnProjects);
     }
 
+    /**
+     * Find by users on projects pk users on projects.
+     *
+     * @param usersOnProjectsPK the users on projects pk
+     * @return the users on projects
+     */
     public UsersOnProjects findByUsersOnProjectsPK(UsersOnProjectsPK usersOnProjectsPK){
         UsersOnProjects usersOnProjects = usersOnProjectsRepository.findByUsersOnProjectsPK(usersOnProjectsPK).get();
         return usersOnProjects;
     }
 
+    /**
+     * Update info users on projects.
+     *
+     * @param usersOnProjects the users on projects
+     * @return the users on projects
+     */
     public UsersOnProjects updateInfo(UsersOnProjects usersOnProjects){
         return usersOnProjectsRepository.save(usersOnProjects);
 

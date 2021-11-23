@@ -10,6 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * The type Users on projects.
+ */
 @Entity
 @Table(name = "users_on_projects")
 @Data
@@ -17,6 +20,9 @@ import javax.persistence.Table;
 @AllArgsConstructor
 //@IdClass(UsersOnProjectsPK.class)
 public class UsersOnProjects {
+    /**
+     * The Users on projects pk.
+     */
 //    @Id
 //    protected long user_id;
 //    @Id
@@ -24,10 +30,22 @@ public class UsersOnProjects {
     @EmbeddedId
     protected UsersOnProjectsPK usersOnProjectsPK;
 
+    /**
+     * The Position.
+     */
     @ManyToOne
     protected Position position;
+    /**
+     * The Rate.
+     */
     protected double rate;
+    /**
+     * The Base salary.
+     */
     protected double base_salary;
+    /**
+     * The Week work time.
+     */
     protected int week_work_time;
 
     @Override

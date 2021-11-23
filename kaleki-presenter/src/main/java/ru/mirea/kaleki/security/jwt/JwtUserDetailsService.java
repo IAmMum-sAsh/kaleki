@@ -8,11 +8,19 @@ import org.springframework.stereotype.Service;
 import ru.mirea.kaleki.entitys.User;
 import ru.mirea.kaleki.services.UserService;
 
+/**
+ * The type Jwt user details service.
+ */
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 //    @Autowired
     private final UserService userService;
 
+    /**
+     * Instantiates a new Jwt user details service.
+     *
+     * @param userService the user service
+     */
     @Autowired
     public JwtUserDetailsService(UserService userService) {
         this.userService = userService;

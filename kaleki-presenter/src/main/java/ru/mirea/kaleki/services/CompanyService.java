@@ -18,29 +18,65 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Company service.
+ */
 @Service
 public class CompanyService {
+    /**
+     * The Company repository.
+     */
     @Autowired
     protected CompanyRepository companyRepository;
 
+    /**
+     * The Project repository.
+     */
     @Autowired
     protected ProjectRepository projectRepository;
 
+    /**
+     * The Users on projects repository.
+     */
     @Autowired
     protected UsersOnProjectsRepository usersOnProjectsRepository;
 
+    /**
+     * The Project service.
+     */
     @Autowired
     protected ProjectService projectService;
 
+    /**
+     * The User service.
+     */
     @Autowired
     protected UserService userService;
 
+    /**
+     * Get companies list.
+     *
+     * @return the list
+     */
     public List<Company> getCompanies(){
         return companyRepository.findAll();
     }
 
+    /**
+     * Gets company by id.
+     *
+     * @param id the id
+     * @return the company by id
+     */
     public Company getCompanyById(long id) {return companyRepository.getById(id);}
 
+    /**
+     * Create company company.
+     *
+     * @param companyDtoPayload the company dto payload
+     * @param ceo               the ceo
+     * @return the company
+     */
     public Company createCompany(CompanyDtoPayload companyDtoPayload, User ceo){
         Company company = new Company();
 
@@ -51,6 +87,12 @@ public class CompanyService {
         return companyRepository.save(company);
     }
 
+    /**
+     * Company info company dto extended.
+     *
+     * @param id the id
+     * @return the company dto extended
+     */
     public CompanyDtoExtended companyInfo(long id){
         CompanyDtoExtended companyDtoExtended = new CompanyDtoExtended();
         Company company = this.getCompanyById(id);

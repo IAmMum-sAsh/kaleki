@@ -6,11 +6,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * The type Jwt user.
+ */
 public class JwtUser implements UserDetails {
     private final String username;
     private final String password;
     private final Collection<GrantedAuthority> authorities;
 
+    /**
+     * Instantiates a new Jwt user.
+     *
+     * @param username         the username
+     * @param password         the password
+     * @param grantedAuthority the granted authority
+     */
     public JwtUser(
             String username,
             String password,

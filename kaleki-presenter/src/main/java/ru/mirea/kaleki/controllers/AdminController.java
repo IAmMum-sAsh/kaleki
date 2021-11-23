@@ -23,21 +23,42 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Admin controller.
+ */
 @Controller
 @RequestMapping("/api")
 public class AdminController {
+    /**
+     * The User service.
+     */
     @Autowired
     protected UserService userService;
 
+    /**
+     * The Company service.
+     */
     @Autowired
     protected CompanyService companyService;
 
+    /**
+     * The Project service.
+     */
     @Autowired
     protected ProjectService projectService;
 
+    /**
+     * The Users on projects service.
+     */
     @Autowired
     protected UsersOnProjectsService usersOnProjectsService;
 
+    /**
+     * Get give manage response entity.
+     *
+     * @param giveManageDto the give manage dto
+     * @return the response entity
+     */
     @PutMapping("/give_manage")
     public ResponseEntity<UserDto> getGiveManage(@RequestBody GiveManageDto giveManageDto){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -56,6 +77,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * Get give admin response entity.
+     *
+     * @param giveManageDto the give manage dto
+     * @return the response entity
+     */
     @PutMapping("/give_admin")
     public ResponseEntity<UserDto> getGiveAdmin(@RequestBody GiveManageDto giveManageDto){
         User user = userService.findById(giveManageDto.getId()).get();
@@ -64,6 +91,12 @@ public class AdminController {
         return ResponseEntity.ok(new UserDto(user));
     }
 
+    /**
+     * Create company response entity.
+     *
+     * @param companyDtoPayload the company dto payload
+     * @return the response entity
+     */
     @PostMapping("/create_company")
     public ResponseEntity<CompanyDto> createCompany(@RequestBody CompanyDtoPayload companyDtoPayload){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -77,6 +110,12 @@ public class AdminController {
         return ResponseEntity.ok(new CompanyDto(companyService.createCompany(companyDtoPayload, currentUser)));
     }
 
+    /**
+     * Create project response entity.
+     *
+     * @param projectDtoPayload the project dto payload
+     * @return the response entity
+     */
     @PostMapping ("/create_project")
     public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDtoPayload projectDtoPayload){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -109,6 +148,12 @@ public class AdminController {
         return ResponseEntity.ok(projectDto);
     }
 
+    /**
+     * Change project status response entity.
+     *
+     * @param payload the payload
+     * @return the response entity
+     */
     @PutMapping("/change_project_status")
     public ResponseEntity<ProjectDto> changeProjectStatus(@RequestBody ChangeProjectStatusDtoPayload payload){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -126,6 +171,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * Accept into company response entity.
+     *
+     * @param acceptDto the accept dto
+     * @return the response entity
+     */
     @PutMapping("/accept_into_company")
     public ResponseEntity<UserDto> acceptIntoCompany(@RequestBody AcceptDto acceptDto){
         User user = userService.findById(acceptDto.getUser_id()).get();

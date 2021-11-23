@@ -21,15 +21,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Help comtroller.
+ */
 @Controller
 @RequestMapping("/api/")
 public class HelpComtroller {
+    /**
+     * The User service.
+     */
     @Autowired
     protected UserService userService;
 
+    /**
+     * The Position service.
+     */
     @Autowired
     protected PositionService positionService;
 
+    /**
+     * Get companies response entity.
+     *
+     * @return the response entity
+     */
     @GetMapping("/get_my_role")
     public ResponseEntity<RoleDto> getCompanies(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -41,6 +55,11 @@ public class HelpComtroller {
         return ResponseEntity.ok(new RoleDto(currentUser.getRole()));
     }
 
+    /**
+     * Get positions response entity.
+     *
+     * @return the response entity
+     */
     @GetMapping("/get_positions")
     public ResponseEntity<List<PositionDto>> getPositions(){
         List<PositionDto> positionDtos = new ArrayList<>();
@@ -54,6 +73,11 @@ public class HelpComtroller {
         return ResponseEntity.ok(positionDtos);
     }
 
+    /**
+     * Get name response entity.
+     *
+     * @return the response entity
+     */
     @GetMapping("/get_name")
     public ResponseEntity<NameDto> getName(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -65,6 +89,11 @@ public class HelpComtroller {
         return ResponseEntity.ok(new NameDto(currentUser.getUsername()));
     }
 
+    /**
+     * Get id response entity.
+     *
+     * @return the response entity
+     */
     @GetMapping("/get_id")
     public ResponseEntity<IdDto> getId(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

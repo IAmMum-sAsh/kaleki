@@ -16,33 +16,72 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type User service.
+ */
 @Service
 @Slf4j
 public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * The B crypt password encoder.
+     */
     @Autowired
     public BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    /**
+     * The Company repository.
+     */
     @Autowired
     protected CompanyRepository companyRepository;
 
+    /**
+     * Password encoder b crypt password encoder.
+     *
+     * @return the b crypt password encoder
+     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
 
+    /**
+     * Find by id optional.
+     *
+     * @param userId the user id
+     * @return the optional
+     */
     public Optional<User> findById(Long userId) {
         return userRepository.findById(userId);
     }
+
+    /**
+     * Find by email optional.
+     *
+     * @param email the email
+     * @return the optional
+     */
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
+    /**
+     * Find all list.
+     *
+     * @return the list
+     */
     public List<User> findAll() {return userRepository.findAll();}
 
+    /**
+     * Register new user user.
+     *
+     * @param userDtoPayload the user dto payload
+     * @param role           the role
+     * @return the user
+     */
     public User registerNewUser(UserDtoPayload userDtoPayload, String role) {
         User user = new User();
 
@@ -60,18 +99,37 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Give manage user.
+     *
+     * @param user the user
+     * @return the user
+     */
     public User giveManage(User user){
         user.setRole("ROLE_MANAGER");
 
         return userRepository.save(user);
     }
 
+    /**
+     * Give admin user.
+     *
+     * @param user the user
+     * @return the user
+     */
     public User giveAdmin(User user){
         user.setRole("ROLE_ADMIN");
 
         return userRepository.save(user);
     }
 
+    /**
+     * Update user company user.
+     *
+     * @param user       the user
+     * @param newCompany the new company
+     * @return the user
+     */
     public User updateUserCompany(User user, String newCompany){
         boolean flag = false;
         if (user.getCompany().equals("")) { flag=true; }
@@ -83,6 +141,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    /**
+     * Update user project user.
+     *
+     * @param user       the user
+     * @param newProject the new project
+     * @return the user
+     */
     public User updateUserProject(User user, String newProject){
         boolean flag = false;
         if (user.getProjects().equals("")) { flag=true; }

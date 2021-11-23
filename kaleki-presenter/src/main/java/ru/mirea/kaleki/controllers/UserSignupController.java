@@ -12,13 +12,25 @@ import ru.mirea.kaleki.security.exeption.ConflictException;
 import ru.mirea.kaleki.security.payload.UserDtoPayload;
 import ru.mirea.kaleki.services.UserService;
 
+/**
+ * The type User signup controller.
+ */
 @Controller
 @RequestMapping("/api/signup")
 public class UserSignupController {
 
+    /**
+     * The User service.
+     */
     @Autowired
     UserService userService;
 
+    /**
+     * Signup new user response entity.
+     *
+     * @param userDtoPayload the user dto payload
+     * @return the response entity
+     */
     @PostMapping("/worker")
     public ResponseEntity<UserDto> signupNewUser(@RequestBody UserDtoPayload userDtoPayload) {
         if (userService.findByEmail(userDtoPayload.getEmail()).isPresent())

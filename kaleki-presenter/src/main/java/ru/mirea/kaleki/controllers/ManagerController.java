@@ -20,15 +20,30 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Manager controller.
+ */
 @Controller
 @RequestMapping("/api")
 public class ManagerController {
+    /**
+     * The User service.
+     */
     @Autowired
     protected UserService userService;
 
+    /**
+     * The Users on projects service.
+     */
     @Autowired
     protected UsersOnProjectsService usersOnProjectsService;
 
+    /**
+     * Set worker on project response entity.
+     *
+     * @param usersOnProjectsDtoPayload the users on projects dto payload
+     * @return the response entity
+     */
     @PostMapping ("/set_worker_on_project")
     public ResponseEntity<UsersOnProjectsDto> setWorkerOnProject(@RequestBody UsersOnProjectsDtoPayload usersOnProjectsDtoPayload){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

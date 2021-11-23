@@ -7,12 +7,18 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * The type Position.
+ */
 @Entity
 @Table(name = "positions")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Position extends BaseEntity{
+    /**
+     * The Name.
+     */
     protected String name;
 
     @Override

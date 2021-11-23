@@ -25,18 +25,35 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Header controller.
+ */
 @Controller
 @RequestMapping("/api/")
 public class HeaderController {
+    /**
+     * The Company service.
+     */
     @Autowired
     protected CompanyService companyService;
 
+    /**
+     * The Project service.
+     */
     @Autowired
     protected ProjectService projectService;
 
+    /**
+     * The User service.
+     */
     @Autowired
     protected UserService userService;
 
+    /**
+     * Get companies response entity.
+     *
+     * @return the response entity
+     */
     @GetMapping("/companies")
     public ResponseEntity<List<CompanyDto>> getCompanies(){
         List<CompanyDto> companyDtos = new ArrayList<>();
@@ -48,11 +65,22 @@ public class HeaderController {
         return ResponseEntity.ok(companyDtos);
     }
 
+    /**
+     * Get company by id response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @GetMapping("/companies/{id}")
     public ResponseEntity<CompanyDtoExtended> getCompanyById(@PathVariable long id){
         return ResponseEntity.ok(companyService.companyInfo(id));
     }
 
+    /**
+     * Get projects response entity.
+     *
+     * @return the response entity
+     */
     @GetMapping("/projects")
     public ResponseEntity<List<ProjectDto>> getProjects(){
         List<ProjectDto> projectDtos = new ArrayList<>();
@@ -64,11 +92,22 @@ public class HeaderController {
         return ResponseEntity.ok(projectDtos);
     }
 
+    /**
+     * Get project by id response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @GetMapping("/projects/{id}")
     public ResponseEntity<ProjectDtoExtended> getProjectById(@PathVariable long id){
         return ResponseEntity.ok(projectService.projectInfo(id));
     }
 
+    /**
+     * Get workers response entity.
+     *
+     * @return the response entity
+     */
     @GetMapping("/workers")
     public ResponseEntity<List<UserDto>> getWorkers(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

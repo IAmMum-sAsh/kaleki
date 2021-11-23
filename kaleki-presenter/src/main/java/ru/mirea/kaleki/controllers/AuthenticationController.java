@@ -17,6 +17,9 @@ import ru.mirea.kaleki.security.jwt.JwtTokenProvider;
 import ru.mirea.kaleki.services.UserService;
 
 
+/**
+ * The type Authentication controller.
+ */
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
@@ -30,6 +33,12 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    /**
+     * Login response entity.
+     *
+     * @param authenticationRequestDto the authentication request dto
+     * @return the response entity
+     */
     @PostMapping("/login")
     public ResponseEntity<JwtAuthDto> login(@RequestBody AuthenticationRequestDto authenticationRequestDto) {
         try {
@@ -51,6 +60,12 @@ public class AuthenticationController {
         }
     }
 
+    /**
+     * Refresh response entity.
+     *
+     * @param tokenPairToRefresh the token pair to refresh
+     * @return the response entity
+     */
     @PostMapping("/refresh")
     public ResponseEntity<JwtAuthDto> refresh(@RequestBody JwtAuthDto tokenPairToRefresh) {
         JwtAuthDto jwtAuthDto = jwtTokenProvider.refreshPairOfTokens(tokenPairToRefresh.getRefreshToken());

@@ -15,32 +15,70 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Project service.
+ */
 @Service
 public class ProjectService {
+    /**
+     * The Project repository.
+     */
     @Autowired
     protected ProjectRepository projectRepository;
 
+    /**
+     * The Company service.
+     */
     @Autowired
     protected CompanyService companyService;
 
+    /**
+     * The Users on projects repository.
+     */
     @Autowired
     protected UsersOnProjectsRepository usersOnProjectsRepository;
 
+    /**
+     * The User service.
+     */
     @Autowired
     protected UserService userService;
 
+    /**
+     * Get projects list.
+     *
+     * @return the list
+     */
     public List<Project> getProjects(){
         return projectRepository.findAll();
     }
 
+    /**
+     * Find by name optional.
+     *
+     * @param name the name
+     * @return the optional
+     */
     public Optional<Project> findByName(String name) {
         return projectRepository.findByName(name);
     }
 
+    /**
+     * Find by id optional.
+     *
+     * @param id the id
+     * @return the optional
+     */
     public Optional<Project> findById(long id) {
         return projectRepository.findById(id);
     }
 
+    /**
+     * Create project project.
+     *
+     * @param projectDtoPayload the project dto payload
+     * @return the project
+     */
     public Project createProject(ProjectDtoPayload projectDtoPayload){
         Project project = new Project();
 
@@ -52,6 +90,12 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
+    /**
+     * Update project status project.
+     *
+     * @param payload the payload
+     * @return the project
+     */
     public Project updateProjectStatus(ChangeProjectStatusDtoPayload payload){
         Project project = projectRepository.findById(payload.getProject_id()).get();
 
@@ -60,6 +104,12 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
+    /**
+     * Project info project dto extended.
+     *
+     * @param id the id
+     * @return the project dto extended
+     */
     public ProjectDtoExtended projectInfo(long id){
         ProjectDtoExtended projectDtoExtended = new ProjectDtoExtended();
         Project project = this.findById(id).get();

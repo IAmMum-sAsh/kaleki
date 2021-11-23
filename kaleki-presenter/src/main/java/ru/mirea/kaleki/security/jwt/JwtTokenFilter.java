@@ -7,9 +7,17 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * The type Jwt token filter.
+ */
 public class JwtTokenFilter implements Filter {
     private JwtTokenProvider jwtTokenProvider;
 
+    /**
+     * Instantiates a new Jwt token filter.
+     *
+     * @param jwtTokenProvider the jwt token provider
+     */
     public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
     }

@@ -20,19 +20,36 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type My controller.
+ */
 @Controller
 @RequestMapping("/api/")
 public class MyController {
 
+    /**
+     * The Project service.
+     */
     @Autowired
     protected ProjectService projectService;
 
+    /**
+     * The User service.
+     */
     @Autowired
     protected UserService userService;
 
+    /**
+     * The Users on projects service.
+     */
     @Autowired
     protected UsersOnProjectsService usersOnProjectsService;
 
+    /**
+     * Get my projects response entity.
+     *
+     * @return the response entity
+     */
     @GetMapping("/my_projects")
     public ResponseEntity<List<ProjectDto>> getMyProjects(){
 
@@ -54,6 +71,12 @@ public class MyController {
         return ResponseEntity.ok(projectDtos);
     }
 
+    /**
+     * Get my project by id response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @GetMapping("/my_projects/{id}")
     public ResponseEntity<ProjectDtoExtendedForUser> getMyProjectById(@PathVariable long id){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -83,6 +106,13 @@ public class MyController {
         return ResponseEntity.ok(projectDtoExtendedForUser);
     }
 
+    /**
+     * Write off response entity.
+     *
+     * @param id          the id
+     * @param writeOffDto the write off dto
+     * @return the response entity
+     */
     @PutMapping("/my_projects/{id}/write_off")
     public ResponseEntity<ProjectDtoExtendedForUser> writeOff(@PathVariable long id, @RequestBody WriteOffDto writeOffDto){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -10,6 +10,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import ru.mirea.kaleki.security.jwt.JwtConfigurer;
 import ru.mirea.kaleki.security.jwt.JwtTokenProvider;
 
+/**
+ * The type Security config.
+ */
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -20,6 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenProvider jwtTokenProvider;
 
+    /**
+     * Instantiates a new Security config.
+     *
+     * @param jwtTokenProvider the jwt token provider
+     */
     @Autowired
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
